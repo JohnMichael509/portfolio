@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en" x-data="app()" class="dark scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ══════════════════════════════════════════════════════════════
+     EDIT ME: Page title & description (shows in browser tab / Google)
+     ══════════════════════════════════════════════════════════════ -->
+<meta name="description" content="Your Name — Mechanical Engineer. Portfolio of CAD design, analysis and manufacturing projects.">
+<meta name="author" content="Your Name">
+<title>John Michael — Portfolio</title>
+
+<!-- Tailwind CSS (styling) + Alpine.js (small bits of interactivity like the mobile menu & dark mode) -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+
+<!-- ══════════════════════════════════════════════════════════════
+     THEME CONFIG: change the accent color here and it updates everywhere
+     ══════════════════════════════════════════════════════════════ -->
+<script>
+tailwind.config = {
+  darkMode: 'class',
+  theme: {
+    extend: {
+      fontFamily: { display: ['Poppins','sans-serif'], body: ['Poppins','sans-serif'] },
+      colors: {
+        accent: '#F97316',         // primary accent — buttons, links, icons (vibrant orange)
+        'accent-light': '#EA580C', // secondary tone — hover/pressed states (deeper orange)
+        'accent-dark': '#9A3412',  // dark burnt orange — available for deep backgrounds/text
+        'accent-soft': '#FFF7ED',  // warm near-white tint — light badge/card backgrounds
+        'accent-black': '#431407'  // near-black brown — available for dark-mode accents
+      }
+    }
+  }
+}
+</script>
+
+<style>
+  *,*::before,*::after{box-sizing:border-box}
+  html,body{font-family:'Poppins',sans-serif}
+  body{transition:background-color .3s,color .3s}
+
+  /* Scales the entire site down to 90%, like browser zoom. Supported in all
+     current major browsers. To go back to 100%, just delete this rule. */
+  html{zoom:90%}
+
+  /* subtle scrollbar */
+  ::-webkit-scrollbar{width:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#F97316;border-radius:99px}
+
+  /* fade/slide-in animation as sections scroll into view */
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .6s cubic-bezier(.4,0,.2,1),transform .6s cubic-bezier(.4,0,.2,1)}
+  .reveal.in{opacity:1;transform:none}
+  .d1{transition-delay:.08s}.d2{transition-delay:.16s}.d3{transition-delay:.24s}.d4{transition-delay:.32s}
+
+  /* underline that grows under nav links on hover / active */
+  .nl{position:relative}
+  .nl::after{content:'';position:absolute;bottom:-2px;left:0;width:0;height:1.5px;background:currentColor;transition:width .22s cubic-bezier(.4,0,.2,1)}
+  .nl:hover::after,.nl.on::after{width:100%}
+  .nl.on{font-weight:500}
+
+  /* shine sweep effect on primary buttons */
+  .shimmer{position:relative;overflow:hidden}
+  .shimmer::after{content:'';position:absolute;top:0;left:-100%;width:60%;height:100%;background:rgba(255,255,255,.18);transform:skewX(-20deg);transition:left .4s cubic-bezier(.4,0,.2,1)}
+  .shimmer:hover::after{left:160%}
+
+  /* image containers keep a consistent crop */
+  .pf{overflow:hidden;background:#d4d4d8}
+  .pf img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* card lift on hover */
+  .card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
+  .card-h:hover{transform:translateY(-4px)}
+
+  [x-cloak]{display:none!important}
+</style>
+</head>
+
+<body class="bg-accent-soft dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased" @contextmenu.prevent="">
+
+<!-- ═══════════════════════════════════════════════════════════════
+     NAVIGATION BAR
+     ═══════════════════════════════════════════════════════════════ -->
+<header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
+  :class="isScrolled ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5' : ''">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-end gap-10" aria-label="Main navigation">
+
+    <ul class="hidden md:flex items-center gap-8 text-sm" role="list">
+      <li><a href="#skills"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='skills'?'on !text-zinc-900 dark:!text-white':''">Skills</a></li>
+      <li><a href="#projects" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='projects'?'on !text-zinc-900 dark:!text-white':''">Portfolio</a></li>
+      <li><a href="#about"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='about'?'on !text-zinc-900 dark:!text-white':''">About</a></li>
+      <li><a href="#contact"  class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
+    </ul>
+
+    <div class="flex items-center gap-3">
+      <!-- mobile menu button -->
+      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+        <svg x-show="!mobileMenuOpen" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        <svg x-show="mobileMenuOpen"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+    </div>
+  </nav>
+
+  <!-- mobile menu dropdown -->
+  <div x-show="mobileMenuOpen" x-cloak
+    x-transition:enter="transition ease-out duration-200" x-transition:enter-start="opacity-0 -translate-y-2" x-transition:enter-end="opacity-100 translate-y-0"
+    x-transition:leave="transition ease-in duration-150" x-transition:leave-start="opacity-100 translate-y-0" x-transition:leave-end="opacity-0 -translate-y-2"
+    class="md:hidden bg-white dark:bg-zinc-950 border-t border-zinc-100 dark:border-zinc-900">
+    <ul class="flex flex-col px-6 py-5 gap-4 text-sm font-medium" role="list">
+      <li><a href="#skills"   @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Skills</a></li>
+      <li><a href="#projects" @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Portfolio</a></li>
+      <li><a href="#about"    @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">About</a></li>
+      <li><a href="#contact"  @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     HERO — first thing visitors see
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="hero" class="relative flex items-center pt-32 pb-20 overflow-hidden">
+  <!-- EDIT ME: optional background image for this section. Replace the src with
+       your own image. Adjust opacity-20 below (try opacity-10 through opacity-40)
+       to control how visible it is behind the text — higher number = more visible. -->
+  <img src="profile/bg.jpg" alt="" aria-hidden="true"
+       class="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none">
+
+  <div class="absolute top-1/4 right-0 w-96 h-96 bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6 py-12 w-full">
+    <div class="grid grid-cols-1 sm:grid-cols-[1.4fr_1fr] md:grid-cols-[1.15fr_1fr] gap-3 sm:gap-8 md:gap-12 items-center">
+
+      <div>
+        <!-- EDIT ME: your name is long (22 characters) so this heading is sized down a
+             notch from the original template to keep it on two lines comfortably.
+             The photo now always sits to the right (even on mobile), so this column
+             is narrower on small screens than before — text-2xl/3xl on the low end
+             keeps it from wrapping too awkwardly. Adjust freely. -->
+        <h1 class="reveal d1 font-display font-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] tracking-tight text-zinc-900 dark:text-white mb-4 sm:mb-6">
+          Hi, I'm <span class="text-accent">Engr. John Michael Feliciano</span>
+        </h1>
+
+        <!-- MOBILE-ONLY PHOTO: shown only below the sm breakpoint, sitting between
+             the heading and the description paragraph. Hidden entirely at sm and
+             up, where the original side-by-side photo (further down) takes over. -->
+        <div class="reveal d2 sm:hidden flex justify-center mb-5">
+          <div class="relative w-40 aspect-square">
+            <div class="absolute -inset-3 bg-accent/25 rounded-full blur-xl -z-10 pointer-events-none" aria-hidden="true"></div>
+            <div class="pf w-full h-full rounded-2xl">
+              <img src="profile/profile1.jpg" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
+            </div>
+            <div class="absolute -bottom-2 -left-2 bg-accent text-white font-display font-bold text-[9px] px-2 py-1 rounded-lg shadow-lg whitespace-nowrap">Open to opportunities</div>
+          </div>
+        </div>
+
+        <!-- EDIT ME: your one-line pitch -->
+        <p class="reveal d2 text-sm sm:text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-xl mb-6 sm:mb-10">
+          Registered Mechanical Engineer specializing in <strong class="font-medium text-zinc-700 dark:text-zinc-300">CAD and 3D modelling</strong>, with working knowledge of <strong class="font-medium text-zinc-700 dark:text-zinc-300">engineering simulation</strong>, <strong class="font-medium text-zinc-700 dark:text-zinc-300">machining</strong>, and <strong class="font-medium text-zinc-700 dark:text-zinc-300">multimedia design</strong>, developed through academic training, professional experience, and continuous learning.
+        </p>
+
+        <!-- flex (no wrap) so these two buttons always stay on one row, even on
+             narrow phones — padding/text shrink at the base size to help them fit. -->
+        <div class="reveal d3 flex gap-1.5 sm:gap-4">
+          <a href="#projects" class="shimmer inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-full hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-[10px] sm:text-sm whitespace-nowrap">
+            View my projects
+            <svg class="w-3 h-3 sm:w-4 sm:h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/></svg>
+          </a>
+          <a href="#contact" class="inline-flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] sm:text-sm whitespace-nowrap">Get in touch</a>
+        </div>
+      </div>
+
+      <!-- EDIT ME: replace with a photo of yourself. Only shown at sm and up now —
+           on mobile the photo above (between the heading and description) is used
+           instead. Sized with w-full + aspect-square (relative to its grid column)
+           instead of fixed pixel widths, so it can never overflow — lg:max-w-[18rem]
+           caps it from growing too large on wide desktop screens. -->
+      <div class="reveal d2 hidden sm:flex justify-end">
+        <div class="relative w-full sm:max-w-[13rem] md:max-w-[15rem] lg:max-w-[17rem] aspect-square">
+          <div class="absolute -inset-4 bg-accent/25 rounded-full blur-2xl -z-10 pointer-events-none" aria-hidden="true"></div>
+          <div class="pf w-full h-full rounded-2xl sm:rounded-3xl">
+            <img src="profile/profile1.jpg" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
+          </div>
+          <div class="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-accent text-white font-display font-bold text-[9px] sm:text-sm px-2 py-1 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-2xl shadow-lg whitespace-nowrap">Open to opportunities</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     SKILLS / SOFTWARE — replaces the old "Services" section
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="skills" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">What I do</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">Skills &amp; Certifications</h2>
+    </div>
+
+    <!-- EDIT ME: four category cards below — each has an icon, a category name,
+         and a row of software "logo" badges. Right now the badges are simple
+         initials placeholders (guaranteed to render, no broken images) — swap
+         each <img>/badge for your own downloaded logo file once you have one:
+         1) grab the official logo from the software's website/press page,
+         2) save it in an "assets/logos" folder next to this HTML file,
+         3) replace a badge's contents with <img src="assets/logos/yourfile.png" class="w-7 h-7 object-contain">
+         Duplicate a badge <div> to add more tools to a category. -->
+    <div class="grid grid-cols-1 md:grid-cols-2 items-start md:items-stretch gap-4 sm:gap-6">
+
+      <article class="reveal d1 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent/40">
+        <h3 class="font-display font-bold text-base sm:text-xl text-zinc-900 dark:text-white mb-3 sm:mb-5">CAD &amp; 3D Modelling</h3>
+        <div class="flex flex-wrap gap-2 sm:gap-3">
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/autocad-icon.png" alt="AutoCAD logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">AutoCAD</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/inventor-icon.png" alt="Inventor logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">Inventor</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/solidworks-icon.png" alt="SolidWorks logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">SolidWorks</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/creo-icon.png" alt="PTC Creo logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">PTC Creo</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal d2 card-h group bg-zinc-900 dark:bg-zinc-800 rounded-2xl p-4 sm:p-8 border border-zinc-800 hover:border-accent/40">
+        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Engineering Analysis</h3>
+        <div class="flex flex-wrap gap-2 sm:gap-3">
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-800 dark:bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/fea-icon.png" alt="FEA Simulation logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">FEA Simulation</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-800 dark:bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/cfd-icon.png" alt="CFD Simulation logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">CFD Simulation</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal d3 card-h group bg-zinc-900 dark:bg-zinc-800 rounded-2xl p-4 sm:p-8 border border-zinc-800 hover:border-accent/40">
+        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Manufacturing &amp; Prototyping</h3>
+        <div class="flex flex-wrap gap-2 sm:gap-3">
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-800 dark:bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/machining-icon.png" alt="Machining logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Machining</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-800 dark:bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/cnc-icon.png" alt="CNC Programming logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">CNC Programming</span>
+          </div>
+        </div>
+      </article>
+
+      <article class="reveal d4 card-h group bg-white dark:bg-zinc-900 rounded-2xl p-4 sm:p-8 border border-zinc-100 dark:border-zinc-800 hover:border-accent/40">
+        <h3 class="font-display font-bold text-base sm:text-xl text-zinc-900 dark:text-white mb-3 sm:mb-5">Digital Productivity &amp; Design</h3>
+        <div class="flex flex-wrap gap-2 sm:gap-3">
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/ms-icon.png" alt="Microsoft Office logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">Microsoft Office</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-accent-soft dark:bg-zinc-800 flex items-center justify-center overflow-hidden"><img src="Icons/adobe-icon.png" alt="Adobe Suite logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-500 dark:text-zinc-400 text-center leading-tight">Adobe Suite</span>
+          </div>
+        </div>
+      </article>
+
+    </div>
+
+    <!-- EDIT ME: certifications & awards, plus certificate images on the right.
+         Duplicate a bullet block to add more entries to the list. -->
+    <div class="reveal mt-16 grid lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
+      <div>
+        <p class="text-sm font-medium text-accent uppercase tracking-widest mb-6">Certifications &amp; Awards</p>
+        <div class="space-y-6">
+          <div class="flex items-start gap-3.5">
+            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
+            <div>
+              <p class="text-base md:text-lg font-medium text-zinc-900 dark:text-white">Registered Mechanical Engineer</p>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">Professional Regulation Commission • Oct 2025</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3.5">
+            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
+            <div>
+              <p class="text-base md:text-lg font-medium text-zinc-900 dark:text-white">Silver Medal</p>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (Regional) • Nov 2021</p>
+            </div>
+          </div>
+          <div class="flex items-start gap-3.5">
+            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
+            <div>
+              <p class="text-base md:text-lg font-medium text-zinc-900 dark:text-white">Gold Medal</p>
+              <p class="text-sm text-zinc-500 dark:text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (District) • Oct 2021</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- EDIT ME: two overlapping certificate images. Replace the src's with your
+           own scanned certificates. Click either one to view it full-size. -->
+      <div class="relative h-64 sm:h-72 mx-auto w-full max-w-sm">
+        <button type="button" @click="openLightbox(['CAD/cert/gold.jpg','CAD/cert/silver.jpg'], 0)"
+          class="absolute top-0 left-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in z-10">
+          <img src="CAD/cert/gold.jpg" alt="Certificate 1" class="w-full h-full object-cover">
+        </button>
+        <button type="button" @click="openLightbox(['CAD/cert/gold.jpg','CAD/cert/silver.jpg'], 1)"
+          class="absolute bottom-0 right-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in">
+          <img src="CAD/cert/silver.jpg" alt="Certificate 2" class="w-full h-full object-cover">
+        </button>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- Lightbox: click any image or video thumbnail to view/play it full-size,
+     click anywhere (or press Esc) to close. Works for both — it auto-detects
+     .mp4 files and plays them with controls instead of showing them as a
+     still image. When a thumbnail belongs to a gallery of multiple images,
+     Previous/Next arrows (and left/right arrow keys) let you step through
+     the rest of that same gallery without closing the lightbox. -->
+<div x-show="lightboxImage" x-cloak @click="closeLightbox()" @keydown.escape.window="closeLightbox()"
+  @keydown.arrow-right.window="lightboxNext()" @keydown.arrow-left.window="lightboxPrev()"
+  x-transition.opacity class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-sm flex items-center justify-center p-6 cursor-zoom-out">
+  <video x-show="lightboxImage && /\.mp4(\?|$)/i.test(lightboxImage)" :src="lightboxImage" @click.stop
+    controls autoplay playsinline class="max-w-full max-h-full rounded-lg shadow-2xl cursor-default"></video>
+  <img x-show="lightboxImage && !/\.mp4(\?|$)/i.test(lightboxImage)" :src="lightboxImage" @click.stop
+    alt="Preview" class="max-w-full max-h-full rounded-lg shadow-2xl cursor-default">
+
+  <!-- Previous button — only shown when the current image belongs to a multi-image gallery -->
+  <button type="button" x-show="lightboxGallery.length > 1" @click.stop="lightboxPrev()" aria-label="Previous image"
+    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+  </button>
+
+  <!-- Next button -->
+  <button type="button" x-show="lightboxGallery.length > 1" @click.stop="lightboxNext()" aria-label="Next image"
+    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+  </button>
+
+  <!-- Image counter, e.g. "2 / 5" -->
+  <div x-show="lightboxGallery.length > 1" @click.stop
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs sm:text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-full"
+    x-text="(lightboxIndex + 1) + ' / ' + lightboxGallery.length"></div>
+
+  <button type="button" @click.stop="closeLightbox()" aria-label="Close"
+    class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+  </button>
+</div>
+<section id="projects" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="mb-14">
+      <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">My Works</p>
+      <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white">Portfolio</h2>
+    </div>
+
+    <div class="reveal d1 mb-10 last:mb-0">
+      <h3 class="font-display font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mb-5">RC Helicopter</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 max-w-[90%] mx-auto">
+        <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 0)" aria-label="View Project 1 — main render full-size">
+  <img src="CAD/proj1/main.jpg" alt="Project 1 — main render" loading="lazy">
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 1)" aria-label="View Project 1 — detail view full-size">
+  <img src="CAD/proj1/1.jpg" alt="Project 1 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 2)" aria-label="View Project 1 — detail view full-size">
+  <img src="CAD/proj1/2.jpg" alt="Project 1 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 3)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 3)" aria-label="View Project 1 — detail view full-size">
+  <img src="CAD/proj1/3.jpg" alt="Project 1 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 4)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg','CAD/proj1/3.jpg','CAD/proj1/4.jpg'], 4)" aria-label="View Project 1 — detail view full-size">
+  <img src="CAD/proj1/4.jpg" alt="Project 1 — detail view" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="max-w-[90%] mx-auto">
+      </div>
+    </div>
+
+    <div class="reveal d2 mb-16 last:mb-0">
+      <h3 class="font-display font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mb-5">V6 Engine</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-5 max-w-[90%] mx-auto">
+        <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 0)" aria-label="Play Project 2 — main render video">
+  <img src="CAD/proj2/main.jpg" alt="Project 2 — main render" loading="lazy">
+  <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
+    <span class="w-14 h-14 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
+      <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+    </span>
+  </span>
+        </div>
+        <div class="grid grid-cols-2 gap-3">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 1)" aria-label="View Project 2 — detail view full-size">
+  <img src="CAD/proj2/1.jpg" alt="Project 2 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 2)" aria-label="View Project 2 — detail view full-size">
+  <img src="CAD/proj2/2.jpg" alt="Project 2 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 3)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 3)" aria-label="View Project 2 — detail view full-size">
+  <img src="CAD/proj2/3.jpg" alt="Project 2 — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 4)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 4)" aria-label="View Project 2 — detail view full-size">
+  <img src="CAD/proj2/4.jpg" alt="Project 2 — detail view" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <div class="max-w-[90%] mx-auto">
+      </div>
+    </div>
+
+    <div class="reveal d4">
+      <h3 class="font-display font-bold text-2xl md:text-3xl text-zinc-900 dark:text-white mb-8">Some Other Works</h3>
+
+      <div class="mb-10">
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">3D Modelling</p>
+        <div class="flex flex-wrap justify-start gap-3">
+          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+            <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 0)" aria-label="View 3D modelling work 1 full-size">
+  <img src="CAD/3D/1.jpg" alt="3D modelling work 1" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Differential Gearbox</p>
+          </div>
+          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+            <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 1)" aria-label="View 3D modelling work 2 full-size">
+  <img src="CAD/3D/2.jpg" alt="3D modelling work 2" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Corner Clamp</p>
+          </div>
+          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+            <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 2)" aria-label="View 3D modelling work 3 full-size">
+  <img src="CAD/3D/3.jpg" alt="3D modelling work 3" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Prototype Project</p>
+          </div>
+          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+            <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 3)" aria-label="View 3D modelling work 4 full-size">
+  <img src="CAD/3D/4.jpg" alt="3D modelling work 4" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Floor Jack</p>
+          </div>
+          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+            <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 4)" aria-label="View 3D modelling work 5 full-size">
+  <img src="CAD/3D/5.jpg" alt="3D modelling work 5" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Soda Bottle</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="mb-10">
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">2D Drawings</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View 2D drawing 1 full-size">
+  <img src="CAD/2D/1.jpg" alt="2D drawing 1" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View 2D drawing 2 full-size">
+  <img src="CAD/2D/2.jpg" alt="2D drawing 2" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View 2D drawing 3 full-size">
+  <img src="CAD/2D/3.jpg" alt="2D drawing 3" loading="lazy">
+          </div>
+        </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center sm:text-left mt-2">Steering Linkage</p>
+
+        <div class="flex justify-start gap-3 mt-6">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View 2D drawing 4 full-size">
+  <img src="CAD/2D/4.jpg" alt="2D drawing 4" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View 2D drawing 5 full-size">
+  <img src="CAD/2D/5.jpg" alt="2D drawing 5" loading="lazy">
+          </div>
+        </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center sm:text-left mt-2">4 Cylinder In-Line</p>
+      </div>
+
+      <div>
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulations</p>
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" aria-label="View Simulation 1 full-size">
+  <img src="CAD/simulations/1.gif" alt="Simulation 1" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" aria-label="View Simulation 2 full-size">
+  <img src="CAD/simulations/2.jpg" alt="Simulation 2" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 2)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 2)" aria-label="View Simulation 3 full-size">
+  <img src="CAD/simulations/3.jpg" alt="Simulation 3" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 3)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 3)" aria-label="View Simulation 4 full-size">
+  <img src="CAD/simulations/4.jpg" alt="Simulation 4" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 4)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 4)" aria-label="View Simulation 5 full-size">
+  <img src="CAD/simulations/5.jpg" alt="Simulation 5" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 5)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 5)" aria-label="View Simulation 6 full-size">
+  <img src="CAD/simulations/6.jpg" alt="Simulation 6" loading="lazy">
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     ABOUT — bio, education, and skill tags
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="about" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
+  <!-- EDIT ME: optional background image for this section, same idea as the hero
+       background further up. Leave the src as-is (a blank placeholder) if you
+       don't want one, or point it at your own image, e.g. "profile/bg2.jpg".
+       Adjust opacity-10 below (try opacity-5 through opacity-25) to control how
+       visible it is behind the content — higher number = more visible. -->
+  <img src="https://placehold.co/1600x900/1a1a1a/1a1a1a?text=" alt="" aria-hidden="true"
+       class="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none">
+
+  <div class="relative z-10 max-w-6xl mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-[2fr_3fr] gap-10 md:gap-16 items-center">
+
+      <div class="reveal hidden md:block">
+        <div class="pf w-full aspect-square max-w-xs mx-auto rounded-3xl">
+          <img src="profile/profile3.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
+        </div>
+      </div>
+
+      <div>
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">About me</p>
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">A bit about<br>who I am</h2>
+
+        <!-- MOBILE-ONLY PHOTO: shown only below the md breakpoint, sitting between
+             the heading and the bio paragraph — sized to roughly match the intro
+             section's mobile photo (w-40). Hidden at md and up, where the original
+             photo (in the left column above) takes over. -->
+        <div class="reveal d1 md:hidden flex justify-center mb-6">
+          <div class="pf w-40 aspect-square rounded-2xl">
+            <img src="profile/profile3.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
+          </div>
+        </div>
+
+        <p class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
+          With degrees in both <strong class="font-medium text-zinc-700 dark:text-zinc-300">mechanical engineering and technology</strong>, I bring a blend of theoretical knowledge and hands-on manufacturing insight to the table. I am highly self-driven, a trait that led me to <strong class="font-medium text-zinc-700 dark:text-zinc-300">self-teach modern CAD platforms</strong>, <strong class="font-medium text-zinc-700 dark:text-zinc-300">represent my school in a competition</strong>, and take on freelance commissions.
+        </p>
+        <p class="reveal d3 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
+          I enjoy discovering and learning through the design cycle—from concept sketches through CAD modeling and simulation.
+        </p>
+
+        <div class="reveal d3">
+          <p class="text-xs font-medium text-accent uppercase tracking-widest mb-3">Education</p>
+          <div class="space-y-4">
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="profile/NU.png" alt="National University logo" class="w-7 h-7 object-contain">
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-900 dark:text-white">Bachelor of Science in Mechanical Engineering</p>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400">National University – Manila • 2025</p>
+              </div>
+            </div>
+            <div class="flex items-center gap-3">
+              <div class="w-10 h-10 rounded-lg bg-white dark:bg-zinc-800 flex items-center justify-center overflow-hidden shrink-0">
+                <img src="profile/TUP.png" alt="Technological University of the Philippines logo" class="w-7 h-7 object-contain">
+              </div>
+              <div>
+                <p class="text-sm font-medium text-zinc-900 dark:text-white">Bachelor of Engineering Technology, Major in Mechanical Technology</p>
+                <p class="text-xs text-zinc-500 dark:text-zinc-400">Technological University of the Philippines – Manila • 2022</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     CONTACT — heading + links (email, LinkedIn)
+     ═══════════════════════════════════════════════════════════════ -->
+<section id="contact" class="py-24">
+  <div class="max-w-6xl mx-auto px-6">
+    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden">
+      <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+      <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
+
+      <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-12 items-start">
+
+        <div>
+          <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
+          <h2 class="reveal d1 font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. Feel free to reach out directly to my email or explore my socials.</p>
+        </div>
+
+        <div class="reveal d2 flex flex-col gap-4">
+          <a href="mailto:john42.jmf@gmail.com"
+             @click="navigator.clipboard.writeText('john42.jmf@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
+             class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
+            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </span>
+            <div class="min-w-0">
+              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5" x-text="emailCopied ? 'Copied to clipboard!' : 'Email'"></p>
+              <p class="text-sm font-medium text-white break-all">john42.jmf@gmail.com</p>
+            </div>
+          </a>
+          <a href="https://www.linkedin.com/in/johnmichaelfeliciano/" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
+            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </span>
+            <div class="min-w-0">
+              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5">LinkedIn</p>
+              <p class="text-sm font-medium text-white break-all">linkedin.com/in/johnmichaelfeliciano</p>
+            </div>
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     FOOTER
+     ═══════════════════════════════════════════════════════════════ -->
+<footer class="border-t border-zinc-100 dark:border-zinc-900">
+  <div class="max-w-6xl mx-auto px-6 py-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+    <p class="text-sm text-zinc-400">© <span id="yr"></span> John Michael. All rights reserved.</p>
+    <p class="text-xs text-zinc-500">Built with
+      <a href="https://tailwindcss.com" rel="noopener noreferrer" target="_blank" class="hover:text-accent transition-colors">Tailwind CSS</a>
+      &amp;
+      <a href="https://alpinejs.dev" rel="noopener noreferrer" target="_blank" class="hover:text-accent transition-colors">Alpine.js</a>
+    </p>
+  </div>
+</footer>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     PAGE LOGIC — mobile menu, dark mode, scroll effects.
+     You shouldn't need to touch this unless you add/remove sections
+     (if you do, update the `sectionIds` array inside init()).
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+function app() {
+  return {
+    mobileMenuOpen: false, // is the mobile menu open?
+    lightboxImage: null,   // currently-open image in the lightbox (null = closed)
+    lightboxGallery: [],   // the full set of images/videos in the current gallery (for Prev/Next)
+    lightboxIndex: 0,      // position of lightboxImage within lightboxGallery
+    emailCopied: false,    // briefly true right after the email link is clicked
+    isScrolled: false,     // has the user scrolled past the top?
+    activeSection: 'hero', // which section is currently in view (for nav highlighting)
+
+    // Opens the lightbox to a specific image/video within a gallery array.
+    // Pass a single-item array (or reuse this with index 0) for one-off images
+    // like the certificates, or a full array for a scrollable set like a project's photos.
+    openLightbox(gallery, index) {
+      this.lightboxGallery = gallery;
+      this.lightboxIndex = index;
+      this.lightboxImage = gallery[index];
+    },
+    lightboxNext() {
+      if (!this.lightboxImage || !this.lightboxGallery.length) return;
+      this.lightboxIndex = (this.lightboxIndex + 1) % this.lightboxGallery.length;
+      this.lightboxImage = this.lightboxGallery[this.lightboxIndex];
+    },
+    lightboxPrev() {
+      if (!this.lightboxImage || !this.lightboxGallery.length) return;
+      this.lightboxIndex = (this.lightboxIndex - 1 + this.lightboxGallery.length) % this.lightboxGallery.length;
+      this.lightboxImage = this.lightboxGallery[this.lightboxIndex];
+    },
+    closeLightbox() {
+      this.lightboxImage = null;
+      this.lightboxGallery = [];
+      this.lightboxIndex = 0;
+    },
+
+    init() {
+      // track scroll position for the sticky nav background
+      window.addEventListener('scroll', () => {
+        this.isScrolled = window.scrollY > 20;
+      }, { passive: true });
+
+      // fade sections in as they scroll into view
+      const observer = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      const sectionIds = ['hero', 'skills', 'projects', 'about', 'contact'];
+      const navObserver = new IntersectionObserver(entries => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            this.activeSection = entry.target.id;
+          }
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+      sectionIds.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) navObserver.observe(el);
+      });
+
+      // auto-update the copyright year
+      document.getElementById('yr').textContent = new Date().getFullYear();
+    }
+  }
+}
+</script>
+
+</body>
+</html>
