@@ -7,9 +7,32 @@
 <!-- ══════════════════════════════════════════════════════════════
      EDIT ME: Page title & description (shows in browser tab / Google)
      ══════════════════════════════════════════════════════════════ -->
-<meta name="description" content="Your Name — Mechanical Engineer. Portfolio of CAD design, analysis and manufacturing projects.">
-<meta name="author" content="Your Name">
+<meta name="description" content="Engr. John Michael Feliciano — Registered Mechanical Engineer. Portfolio of CAD design, engineering simulation, and manufacturing projects.">
+<meta name="author" content="John Michael Feliciano">
 <title>John Michael — Portfolio</title>
+
+<!-- Favicon: a simple "JMF" monogram in the site's accent color. Swap these
+     for your own icon files any time — just keep the same filenames, or
+     update the paths below to match. -->
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+
+<!-- ══════════════════════════════════════════════════════════════
+     EDIT ME: Social preview (Open Graph / Twitter Card) — controls how
+     this page looks when shared as a link on LinkedIn, Messenger, Discord,
+     etc. og:url should be your live site's URL once you have one hosted.
+     og:image should be an actual image file (ideally ~1200x630px) — a
+     render of your work or a headshot both work well.
+     ══════════════════════════════════════════════════════════════ -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="John Michael Feliciano — Mechanical Engineer Portfolio">
+<meta property="og:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and multimedia design.">
+<meta property="og:image" content="og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="John Michael Feliciano — Mechanical Engineer Portfolio">
+<meta name="twitter:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and multimedia design.">
+<meta name="twitter:image" content="og-image.png">
 
 <!-- Tailwind CSS (styling) + Alpine.js (small bits of interactivity like the mobile menu & dark mode) -->
 <script src="https://cdn.tailwindcss.com"></script>
@@ -417,7 +440,6 @@ tailwind.config = {
     </div>
 
     <div class="reveal d2 mb-16 last:mb-0">
-      <p class="text-[11px] font-medium text-accent tracking-widest uppercase mb-5">3D Modelling</p>
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mb-2 max-w-[90%] mx-auto">
         <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg','CAD/proj2/3.jpg','CAD/proj2/4.jpg'], 0)" aria-label="Play Project 2 — main render video">
   <img src="CAD/proj2/main.jpg" alt="Project 2 — main render" loading="lazy">
@@ -485,34 +507,34 @@ tailwind.config = {
       </div>
 
       <div class="mb-10">
-        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">2D Drawings</p>
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Technical Drawing</p>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View 2D drawing 1 full-size">
-  <img src="CAD/2D/1.jpg" alt="2D drawing 1" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View Technical Drawing 1 full-size">
+  <img src="CAD/2D/1.jpg" alt="Technical Drawing 1" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View 2D drawing 2 full-size">
-  <img src="CAD/2D/2.jpg" alt="2D drawing 2" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View Technical Drawing 2 full-size">
+  <img src="CAD/2D/2.jpg" alt="Technical Drawing 2" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View 2D drawing 3 full-size">
-  <img src="CAD/2D/3.jpg" alt="2D drawing 3" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View Technical Drawing 3 full-size">
+  <img src="CAD/2D/3.jpg" alt="Technical Drawing 3" loading="lazy">
           </div>
         </div>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Steering Linkage</p>
 
         <div class="flex justify-start gap-3 mt-6">
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View 2D drawing 4 full-size">
-  <img src="CAD/2D/4.jpg" alt="2D drawing 4" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View Technical Drawing 4 full-size">
+  <img src="CAD/2D/4.jpg" alt="Technical Drawing 4" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View 2D drawing 5 full-size">
-  <img src="CAD/2D/5.jpg" alt="2D drawing 5" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View Technical Drawing 5 full-size">
+  <img src="CAD/2D/5.jpg" alt="Technical Drawing 5" loading="lazy">
           </div>
         </div>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">4 Cylinder In-Line</p>
       </div>
 
       <div>
-        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulations</p>
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulation</p>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
           <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 0)" aria-label="View CFD Simulation 1 full-size">
