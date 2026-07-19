@@ -90,21 +90,25 @@ tailwind.config = {
      ═══════════════════════════════════════════════════════════════ -->
 <header class="fixed inset-x-0 top-0 z-50 transition-all duration-300"
   :class="isScrolled ? 'bg-white/90 dark:bg-zinc-950/90 backdrop-blur-md shadow-sm shadow-black/5' : ''">
-  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-end gap-10" aria-label="Main navigation">
+  <nav class="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between gap-10" aria-label="Main navigation">
 
-    <ul class="hidden md:flex items-center gap-8 text-sm" role="list">
-      <li><a href="#skills"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='skills'?'on !text-zinc-900 dark:!text-white':''">Skills</a></li>
-      <li><a href="#projects" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='projects'?'on !text-zinc-900 dark:!text-white':''">Portfolio</a></li>
-      <li><a href="#about"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='about'?'on !text-zinc-900 dark:!text-white':''">About</a></li>
-      <li><a href="#contact"  class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
-    </ul>
+    <a href="#hero" class="font-display font-bold text-accent hover:text-accent-light transition-colors" :class="activeSection==='hero' ? 'underline underline-offset-4' : ''">Home</a>
 
-    <div class="flex items-center gap-3">
-      <!-- mobile menu button -->
-      <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
-        <svg x-show="!mobileMenuOpen" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
-        <svg x-show="mobileMenuOpen"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-      </button>
+    <div class="flex items-center gap-10">
+      <ul class="hidden md:flex items-center gap-8 text-sm" role="list">
+        <li><a href="#skills"   class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='skills'?'on !text-zinc-900 dark:!text-white':''">Skills</a></li>
+        <li><a href="#projects" class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='projects'?'on !text-zinc-900 dark:!text-white':''">Portfolio</a></li>
+        <li><a href="#background"    class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='background'?'on !text-zinc-900 dark:!text-white':''">Background</a></li>
+        <li><a href="#contact"  class="nl text-zinc-500 dark:text-zinc-400 hover:text-zinc-900 dark:hover:text-white transition-colors" :class="activeSection==='contact'?'on !text-zinc-900 dark:!text-white':''">Contact</a></li>
+      </ul>
+
+      <div class="flex items-center gap-3">
+        <!-- mobile menu button -->
+        <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden w-9 h-9 flex items-center justify-center rounded-full border border-zinc-200 dark:border-zinc-800" :aria-expanded="mobileMenuOpen" aria-label="Toggle menu">
+          <svg x-show="!mobileMenuOpen" class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+          <svg x-show="mobileMenuOpen"  class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+        </button>
+      </div>
     </div>
   </nav>
 
@@ -116,7 +120,7 @@ tailwind.config = {
     <ul class="flex flex-col px-6 py-5 gap-4 text-sm font-medium" role="list">
       <li><a href="#skills"   @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Skills</a></li>
       <li><a href="#projects" @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Portfolio</a></li>
-      <li><a href="#about"    @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">About</a></li>
+      <li><a href="#background"    @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Background</a></li>
       <li><a href="#contact"  @click="mobileMenuOpen = false" class="block text-zinc-700 dark:text-zinc-300 hover:text-accent transition-colors">Contact</a></li>
     </ul>
   </div>
@@ -317,13 +321,13 @@ tailwind.config = {
       <!-- EDIT ME: two overlapping certificate images. Replace the src's with your
            own scanned certificates. Click either one to view it full-size. -->
       <div class="relative h-64 sm:h-72 mx-auto w-full max-w-sm">
-        <button type="button" @click="openLightbox(['CAD/cert/Gold.jpg','CAD/cert/Silver.jpg'], 0)"
+        <button type="button" @click="openLightbox(['CAD/cert/gold.jpg','CAD/cert/silver.jpg'], 0)"
           class="absolute top-0 left-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in z-10">
-          <img src="CAD/cert/Gold.jpg" alt="Certificate 1" class="w-full h-full object-cover">
+          <img src="CAD/cert/gold.jpg" alt="Certificate 1" class="w-full h-full object-cover">
         </button>
-        <button type="button" @click="openLightbox(['CAD/cert/Gold.jpg','CAD/cert/Silver.jpg'], 1)"
+        <button type="button" @click="openLightbox(['CAD/cert/gold.jpg','CAD/cert/silver.jpg'], 1)"
           class="absolute bottom-0 right-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in">
-          <img src="CAD/cert/Silver.jpg" alt="Certificate 2" class="w-full h-full object-cover">
+          <img src="CAD/cert/silver.jpg" alt="Certificate 2" class="w-full h-full object-cover">
         </button>
       </div>
     </div>
@@ -435,35 +439,35 @@ tailwind.config = {
       <div class="mb-10">
         <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">3D Modelling</p>
         <div class="flex flex-wrap justify-start gap-3">
-          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+          <div class="w-[calc((100%-0.75rem)/2)] min-[480px]:w-[calc((100%-1.5rem)/3)]">
             <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 0)" aria-label="View 3D modelling work 1 full-size">
   <img src="CAD/3D/1.jpg" alt="3D modelling work 1" loading="lazy">
             </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Differential Gearbox</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Differential Gearbox</p>
           </div>
-          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+          <div class="w-[calc((100%-0.75rem)/2)] min-[480px]:w-[calc((100%-1.5rem)/3)]">
             <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 1)" aria-label="View 3D modelling work 2 full-size">
   <img src="CAD/3D/2.jpg" alt="3D modelling work 2" loading="lazy">
             </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Corner Clamp</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Corner Clamp</p>
           </div>
-          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+          <div class="w-[calc((100%-0.75rem)/2)] min-[480px]:w-[calc((100%-1.5rem)/3)]">
             <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 2)" aria-label="View 3D modelling work 3 full-size">
   <img src="CAD/3D/3.jpg" alt="3D modelling work 3" loading="lazy">
             </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Prototype Project</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Prototype Project</p>
           </div>
-          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+          <div class="w-[calc((100%-0.75rem)/2)] min-[480px]:w-[calc((100%-1.5rem)/3)]">
             <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 3)" aria-label="View 3D modelling work 4 full-size">
   <img src="CAD/3D/4.jpg" alt="3D modelling work 4" loading="lazy">
             </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Floor Jack</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Floor Jack</p>
           </div>
-          <div class="w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]">
+          <div class="w-[calc((100%-0.75rem)/2)] min-[480px]:w-[calc((100%-1.5rem)/3)]">
             <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg'], 4)" aria-label="View 3D modelling work 5 full-size">
   <img src="CAD/3D/5.jpg" alt="3D modelling work 5" loading="lazy">
             </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Soda Bottle</p>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Soda Bottle</p>
           </div>
         </div>
       </div>
@@ -482,7 +486,7 @@ tailwind.config = {
   <img src="CAD/2D/3.jpg" alt="2D drawing 3" loading="lazy">
           </div>
         </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center sm:text-left mt-2">Steering Linkage</p>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Steering Linkage</p>
 
         <div class="flex justify-start gap-3 mt-6">
           <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View 2D drawing 4 full-size">
@@ -492,31 +496,37 @@ tailwind.config = {
   <img src="CAD/2D/5.jpg" alt="2D drawing 5" loading="lazy">
           </div>
         </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center sm:text-left mt-2">4 Cylinder In-Line</p>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">4 Cylinder In-Line</p>
       </div>
 
       <div>
         <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulations</p>
+
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" aria-label="View Simulation 1 full-size">
-  <img src="CAD/simulations/1.gif" alt="Simulation 1" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 0)" aria-label="View CFD Simulation 1 full-size">
+  <img src="CAD/simulations/1.gif" alt="CFD Simulation 1" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" aria-label="View Simulation 2 full-size">
-  <img src="CAD/simulations/2.jpg" alt="Simulation 2" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 1)" aria-label="View CFD Simulation 2 full-size">
+  <img src="CAD/simulations/2.jpg" alt="CFD Simulation 2" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 2)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 2)" aria-label="View Simulation 3 full-size">
-  <img src="CAD/simulations/3.jpg" alt="Simulation 3" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 2)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 2)" aria-label="View CFD Simulation 3 full-size">
+  <img src="CAD/simulations/3.jpg" alt="CFD Simulation 3" loading="lazy">
           </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 3)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 3)" aria-label="View Simulation 4 full-size">
-  <img src="CAD/simulations/4.jpg" alt="Simulation 4" loading="lazy">
-          </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 4)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 4)" aria-label="View Simulation 5 full-size">
-  <img src="CAD/simulations/5.jpg" alt="Simulation 5" loading="lazy">
-          </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 5)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg','CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 5)" aria-label="View Simulation 6 full-size">
-  <img src="CAD/simulations/6.jpg" alt="Simulation 6" loading="lazy">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 3)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.jpg','CAD/simulations/3.jpg','CAD/simulations/4.jpg'], 3)" aria-label="View CFD Simulation 4 full-size">
+  <img src="CAD/simulations/4.jpg" alt="CFD Simulation 4" loading="lazy">
           </div>
         </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Computational Fluid Dynamics (CFD)</p>
+
+        <div class="flex justify-start gap-3 mt-6">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" aria-label="View FEA Simulation 1 full-size">
+  <img src="CAD/simulations/5.jpg" alt="FEA Simulation 1" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" aria-label="View FEA Simulation 2 full-size">
+  <img src="CAD/simulations/6.jpg" alt="FEA Simulation 2" loading="lazy">
+          </div>
+        </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Finite Element Analysis (FEA)</p>
       </div>
 
     </div>
@@ -527,7 +537,7 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      ABOUT — bio, education, and skill tags
      ═══════════════════════════════════════════════════════════════ -->
-<section id="about" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
+<section id="background" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
   <!-- EDIT ME: optional background image for this section, same idea as the hero
        background further up. Leave the src as-is (a blank placeholder) if you
        don't want one, or point it at your own image, e.g. "profile/bg2.jpg".
@@ -541,13 +551,13 @@ tailwind.config = {
 
       <div class="reveal hidden md:block">
         <div class="pf w-full aspect-square max-w-xs mx-auto rounded-3xl">
-          <img src="profile/profile3.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
+          <img src="profile/profile2.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
         </div>
       </div>
 
       <div>
-        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">About me</p>
-        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">A bit about<br>who I am</h2>
+        <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Background</p>
+        <h2 class="reveal d1 font-display font-bold text-4xl md:text-5xl text-zinc-900 dark:text-white leading-tight mb-6">A bit about<br>my background</h2>
 
         <!-- MOBILE-ONLY PHOTO: shown only below the md breakpoint, sitting between
              the heading and the bio paragraph — sized to roughly match the intro
@@ -555,7 +565,7 @@ tailwind.config = {
              photo (in the left column above) takes over. -->
         <div class="reveal d1 md:hidden flex justify-center mb-6">
           <div class="pf w-40 aspect-square rounded-2xl">
-            <img src="profile/profile3.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
+            <img src="profile/profile2.jpg" alt="Engr. John Michael Feliciano" loading="lazy">
           </div>
         </div>
 
@@ -609,7 +619,7 @@ tailwind.config = {
         <div>
           <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
           <h2 class="reveal d1 font-display font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. Feel free to reach out directly to my email or explore my socials.</p>
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. Feel free to reach out directly by clicking my email or socials!</p>
         </div>
 
         <div class="reveal d2 flex flex-col gap-4">
@@ -713,7 +723,7 @@ function app() {
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
 
-      const sectionIds = ['hero', 'skills', 'projects', 'about', 'contact'];
+      const sectionIds = ['hero', 'skills', 'projects', 'background', 'contact'];
       const navObserver = new IntersectionObserver(entries => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
