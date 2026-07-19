@@ -34,9 +34,7 @@ tailwind.config = {
         'accent-light': '#EA580C', // secondary tone — hover/pressed states (deeper orange)
         'accent-dark': '#9A3412',  // dark burnt orange — available for deep backgrounds/text
         'accent-soft': '#FFF7ED',  // warm near-white tint — light badge/card backgrounds
-        'accent-black': '#431407', // near-black brown — available for dark-mode accents
-        accent2: '#38BDF8',        // secondary "blueprint" accent — used for CAD image frames & grid texture
-        'accent2-light': '#0EA5E9' // secondary accent hover/pressed state
+        'accent-black': '#431407'  // near-black brown — available for dark-mode accents
       }
     }
   }
@@ -83,18 +81,6 @@ tailwind.config = {
 
   [x-cloak]{display:none!important}
 
-  /* subtle blueprint-style grid texture, used as a faint technical backdrop
-     behind major sections — fades out toward the edges so it never looks
-     like a hard-edged pattern box */
-  .blueprint-grid{
-    position:absolute;inset:0;pointer-events:none;
-    background-image:
-      linear-gradient(to right, rgba(56,189,248,.05) 1px, transparent 1px),
-      linear-gradient(to bottom, rgba(56,189,248,.05) 1px, transparent 1px);
-    background-size:40px 40px;
-    -webkit-mask-image:radial-gradient(ellipse at center, black 35%, transparent 85%);
-    mask-image:radial-gradient(ellipse at center, black 35%, transparent 85%);
-  }
 </style>
 </head>
 
@@ -221,7 +207,10 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      SKILLS / SOFTWARE — replaces the old "Services" section
      ═══════════════════════════════════════════════════════════════ -->
-<section id="skills" class="py-24 bg-zinc-50 dark:bg-zinc-900/40">
+<section id="skills" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
+  <div class="absolute top-0 left-1/4 w-[26rem] h-[26rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+  <div class="absolute bottom-0 right-0 w-[22rem] h-[22rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
+
   <div class="relative z-10 max-w-6xl mx-auto px-6">
     <div class="mb-14">
       <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">What I do</p>
