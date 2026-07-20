@@ -578,7 +578,7 @@ tailwind.config = {
        don't want one, or point it at your own image, e.g. "profile/bg2.jpg".
        Adjust opacity-10 below (try opacity-5 through opacity-25) to control how
        visible it is behind the content — higher number = more visible. -->
-  <img src="https://placehold.co/1600x900/1a1a1a/1a1a1a?text=" alt="" aria-hidden="true"
+  <img src="profile/bg2.jpg" alt="" aria-hidden="true"
        class="absolute inset-0 w-full h-full object-cover opacity-10 pointer-events-none">
 
 
@@ -655,19 +655,28 @@ tailwind.config = {
         <div>
           <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
           <h2 class="reveal d1 font-tech font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. Feel free to reach out directly by clicking my email or socials!</p>
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. Click any of the buttons below to reach me directly through Messenger, email, or LinkedIn!</p>
         </div>
 
         <div class="reveal d2 flex flex-col gap-4">
-          <a href="mailto:john42.jmf@gmail.com"
-             @click="navigator.clipboard.writeText('john42.jmf@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
+          <a href="https://m.me/johnmichaelfeliciano.509" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
+            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.084-2.242c1.09.301 2.246.464 3.447.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/></svg>
+            </span>
+            <div class="min-w-0">
+              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5">Messenger</p>
+              <p class="text-sm font-medium text-white break-all">m.me/johnmichaelfeliciano.509</p>
+            </div>
+          </a>
+          <a href="mailto:johnfeliciano.engr@gmail.com"
+             @click="navigator.clipboard.writeText('johnfeliciano.engr@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
              class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
             <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
               <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
             </span>
             <div class="min-w-0">
               <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5" x-text="emailCopied ? 'Copied to clipboard!' : 'Email'"></p>
-              <p class="text-sm font-medium text-white break-all">john42.jmf@gmail.com</p>
+              <p class="text-sm font-medium text-white break-all">johnfeliciano.engr@gmail.com</p>
             </div>
           </a>
           <a href="https://www.linkedin.com/in/johnmichaelfeliciano/" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
@@ -786,6 +795,5 @@ function app() {
 }
 </script>
 
-     
 </body>
 </html>
