@@ -508,6 +508,36 @@ tailwind.config = {
       </div>
 
       <div class="mb-10">
+        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulation</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 0)" aria-label="View CFD Simulation 1 full-size">
+  <img src="CAD/simulations/1.gif" alt="CFD Simulation 1" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 1)" aria-label="View CFD Simulation 2 full-size">
+  <img src="CAD/simulations/2.gif" alt="CFD Simulation 2" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 2)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 2)" aria-label="View CFD Simulation 3 full-size">
+  <img src="CAD/simulations/3.gif" alt="CFD Simulation 3" loading="lazy">
+          </div>
+        </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Computational Fluid Dynamics (CFD)</p>
+
+        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 mt-6">
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 0)" aria-label="View FEA Simulation 1 full-size">
+  <img src="CAD/simulations/5.jpg" alt="FEA Simulation 1" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 1)" aria-label="View FEA Simulation 2 full-size">
+  <img src="CAD/simulations/6.jpg" alt="FEA Simulation 2" loading="lazy">
+          </div>
+          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 2)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg','CAD/simulations/6.gif'], 2)" aria-label="View FEA Simulation 3 full-size">
+  <img src="CAD/simulations/6.gif" alt="FEA Simulation 3" loading="lazy">
+          </div>
+        </div>
+        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Finite Element Analysis (FEA)</p>
+      </div>
+
+      <div>
         <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Technical Drawing</p>
 
         <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
@@ -532,33 +562,6 @@ tailwind.config = {
           </div>
         </div>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">4 Cylinder In-Line</p>
-      </div>
-
-      <div>
-        <p class="text-xs font-medium text-accent uppercase tracking-widest mb-4">Simulation</p>
-
-        <div class="grid grid-cols-2 sm:grid-cols-3 gap-3">
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 0)" aria-label="View CFD Simulation 1 full-size">
-  <img src="CAD/simulations/1.gif" alt="CFD Simulation 1" loading="lazy">
-          </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 1)" aria-label="View CFD Simulation 2 full-size">
-  <img src="CAD/simulations/2.gif" alt="CFD Simulation 2" loading="lazy">
-          </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 2)" @keydown.enter="openLightbox(['CAD/simulations/1.gif','CAD/simulations/2.gif','CAD/simulations/3.gif'], 2)" aria-label="View CFD Simulation 3 full-size">
-  <img src="CAD/simulations/3.gif" alt="CFD Simulation 3" loading="lazy">
-          </div>
-        </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Computational Fluid Dynamics (CFD)</p>
-
-        <div class="flex justify-start gap-3 mt-6">
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 0)" aria-label="View FEA Simulation 1 full-size">
-  <img src="CAD/simulations/5.jpg" alt="FEA Simulation 1" loading="lazy">
-          </div>
-          <div class="pf aspect-[16/10] rounded-2xl cursor-zoom-in w-[calc((100%-0.75rem)/2)] sm:w-[calc((100%-1.5rem)/3)]" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/5.jpg','CAD/simulations/6.jpg'], 1)" aria-label="View FEA Simulation 2 full-size">
-  <img src="CAD/simulations/6.jpg" alt="FEA Simulation 2" loading="lazy">
-          </div>
-        </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Finite Element Analysis (FEA)</p>
       </div>
 
     </div>
@@ -652,7 +655,7 @@ tailwind.config = {
         <div>
           <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
           <h2 class="reveal d1 font-tech font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to mechanical engineering work. <strong class="font-semibold text-white">Click</strong> any of the buttons to reach me directly through Messenger, email, or LinkedIn!</p>
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to freelance mechanical engineering commissions. <strong class="font-semibold text-white">Click</strong> any of the buttons to reach me directly through Messenger, email, or LinkedIn!</p>
         </div>
 
         <div class="reveal d2 flex flex-col gap-4">
@@ -682,7 +685,7 @@ tailwind.config = {
             </span>
             <div class="min-w-0">
               <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5">LinkedIn</p>
-              <p class="text-sm font-medium text-white break-all">linkedin.com/in/johnmichaelfeliciano</p>
+              <p class="text-sm font-medium text-white truncate">@johnmichaelfeliciano</p>
             </div>
           </a>
         </div>
