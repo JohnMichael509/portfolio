@@ -421,39 +421,45 @@ tailwind.config = {
          <div x-show="tab==='id'" x-cloak> ... </div> content block
          further down (see the pattern already used for the four tabs).
          ══════════════════════════════════════════════════════════════ -->
-    <div class="reveal d1 [overflow-anchor:none]" x-data="{ tab: 'featured' }">
+    <div class="reveal d1 [overflow-anchor:none]" x-data="{
+        tab: 'featured',
+        panelHeight: null,
+        syncHeight() { this.panelHeight = this.$refs['panel-' + this.tab].offsetHeight; },
+        switchTab(id) { this.tab = id; this.syncHeight(); }
+      }"
+      x-init="syncHeight(); window.addEventListener('resize', () => syncHeight())">
 
       <div class="flex flex-wrap items-center gap-1 sm:gap-2 border-b border-zinc-200 dark:border-zinc-800 mb-10" role="tablist">
-        <button @click="tab = 'featured'" role="tab" :aria-selected="tab==='featured'"
+        <button @click="switchTab('featured')" role="tab" :aria-selected="tab==='featured'"
           class="relative shrink-0 px-4 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='featured' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='featured' ? 'text-white' : 'text-accent hover:text-accent-light'">Featured Projects</span>
         </button>
-        <button @click="tab = '3d'" role="tab" :aria-selected="tab==='3d'"
+        <button @click="switchTab('3d')" role="tab" :aria-selected="tab==='3d'"
           class="relative shrink-0 px-4 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='3d' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='3d' ? 'text-white' : 'text-accent hover:text-accent-light'">3D Modelling</span>
         </button>
-        <button @click="tab = 'simulation'" role="tab" :aria-selected="tab==='simulation'"
+        <button @click="switchTab('simulation')" role="tab" :aria-selected="tab==='simulation'"
           class="relative shrink-0 px-4 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='simulation' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='simulation' ? 'text-white' : 'text-accent hover:text-accent-light'">Simulation</span>
         </button>
-        <button @click="tab = 'technical'" role="tab" :aria-selected="tab==='technical'"
+        <button @click="switchTab('technical')" role="tab" :aria-selected="tab==='technical'"
           class="relative shrink-0 px-4 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='technical' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='technical' ? 'text-white' : 'text-accent hover:text-accent-light'">Technical Drawing</span>
         </button>
-        <button @click="tab = 'manufacturing'" role="tab" :aria-selected="tab==='manufacturing'"
+        <button @click="switchTab('manufacturing')" role="tab" :aria-selected="tab==='manufacturing'"
           class="relative shrink-0 px-4 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='manufacturing' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='manufacturing' ? 'text-white' : 'text-accent hover:text-accent-light'">Manufacturing</span>
         </button>
       </div>
 
-    <div class="grid">
+    <div class="grid" :style="panelHeight !== null ? ('height:' + panelHeight + 'px; overflow:hidden; transition: height 400ms ease') : ''">
 
-    <div class="col-start-1 row-start-1 transition-opacity duration-500 ease-out" :class="tab === 'featured' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'featured'">
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-featured" :class="tab === 'featured' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'featured'">
 
     <div class="mb-10 last:mb-0">
       <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
@@ -516,7 +522,7 @@ tailwind.config = {
 
     </div><!-- /tab: featured -->
 
-    <div class="col-start-1 row-start-1 transition-opacity duration-500 ease-out" :class="tab === '3d' ? 'opacity-100' : 'opacity-0'" :inert="tab !== '3d'">
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-3d" :class="tab === '3d' ? 'opacity-100' : 'opacity-0'" :inert="tab !== '3d'">
       <div class="mb-14">
         <div class="flex flex-wrap justify-start gap-3 max-w-[90%] mx-auto">
           <div class="w-[calc((100%-0.75rem)/2)]">
@@ -572,7 +578,7 @@ tailwind.config = {
 
     </div><!-- /tab: 3d -->
 
-    <div class="col-start-1 row-start-1 transition-opacity duration-500 ease-out" :class="tab === 'simulation' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'simulation'">
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-simulation" :class="tab === 'simulation' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'simulation'">
       <div class="mb-14">
 
         <div class="grid grid-cols-2 gap-3 max-w-[90%] mx-auto">
@@ -604,7 +610,7 @@ tailwind.config = {
 
     </div><!-- /tab: simulation -->
 
-    <div class="col-start-1 row-start-1 transition-opacity duration-500 ease-out" :class="tab === 'technical' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'technical'">
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-technical" :class="tab === 'technical' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'technical'">
 
         <div class="grid grid-cols-2 gap-3 max-w-[90%] mx-auto">
           <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View Technical Drawing 1 full-size">
@@ -634,7 +640,7 @@ tailwind.config = {
          slicing screenshots. Swap the CAD/manufacturing/... paths for your own files.
          Videos need a poster image (a still frame) for the thumbnail, plus the actual
          .mp4 for the lightbox — same pattern as the V6 Engine video above. -->
-    <div class="col-start-1 row-start-1 transition-opacity duration-500 ease-out" :class="tab === 'manufacturing' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'manufacturing'">
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-manufacturing" :class="tab === 'manufacturing' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'manufacturing'">
 
       <div class="grid grid-cols-2 gap-3 max-w-[90%] mx-auto">
         <div class="pf aspect-[16/9] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.mp4'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.mp4'], 0)" aria-label="Play CNC programming simulation 1 video">
