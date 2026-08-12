@@ -362,11 +362,11 @@ tailwind.config = {
            own scanned certificates. Click either one to view it full-size. -->
       <div class="relative h-64 sm:h-72 mx-auto w-full max-w-sm">
         <button type="button" @click="openLightbox(['CAD/cert/Gold.jpg','CAD/cert/Silver.jpg'], 0)"
-          class="absolute top-0 left-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in z-10">
+          class="absolute top-0 left-0 w-52 sm:w-60 aspect-[4/3] rounded-lg overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in z-10">
           <img src="CAD/cert/Gold.jpg" alt="Gold Medal — TESDA Skills Competition, Mechanical Engineering CAD (District)" class="w-full h-full object-cover">
         </button>
         <button type="button" @click="openLightbox(['CAD/cert/Gold.jpg','CAD/cert/Silver.jpg'], 1)"
-          class="absolute bottom-0 right-0 w-52 sm:w-60 aspect-[4/3] rounded-2xl overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in">
+          class="absolute bottom-0 right-0 w-52 sm:w-60 aspect-[4/3] rounded-lg overflow-hidden border border-zinc-700 shadow-xl hover:-translate-y-1 hover:shadow-2xl transition-all cursor-zoom-in">
           <img src="CAD/cert/Silver.jpg" alt="Silver Medal — TESDA Skills Competition, Mechanical Engineering CAD (Regional)" class="w-full h-full object-cover">
         </button>
       </div>
@@ -475,41 +475,41 @@ tailwind.config = {
 
     <div class="mb-10 last:mb-0">
       <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
-        <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 0)" aria-label="View Project 1 — main render full-size">
-  <img src="CAD/proj1/main.jpg" alt="Project 1 — main render" loading="lazy">
+        <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 0)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 0)" aria-label="View V6 Engine — main render full-size">
+  <img src="CAD/proj1/main.jpg" alt="V6 Engine — main render" loading="lazy">
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:w-[38%]">
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 1)" aria-label="View Project 1 — detail view full-size">
-  <img src="CAD/proj1/1.jpg" alt="Project 1 — detail view" loading="lazy">
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 1)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 1)" aria-label="View V6 Engine — detail view full-size">
+  <img src="CAD/proj1/1.jpg" alt="V6 Engine — detail view" loading="lazy">
           </div>
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.jpg'], 2)" aria-label="View Project 1 — detail view full-size">
-  <img src="CAD/proj1/2.jpg" alt="Project 1 — detail view" loading="lazy">
-          </div>
-        </div>
-      </div>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">RC Helicopter</p>
-    </div>
-
-    <div class="mb-16 last:mb-0">
-      <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
-        <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in relative sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 0)" aria-label="Play Project 2 — main render video">
-  <img src="CAD/proj2/main.jpg" alt="Project 2 — main render" loading="lazy">
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 2)" @keydown.enter="openLightbox(['CAD/proj1/main.jpg','CAD/proj1/1.jpg','CAD/proj1/2.mp4'], 2)" aria-label="Play V6 Engine — detail video">
+  <img src="CAD/proj1/thumbnail.jpg" alt="V6 Engine — detail video preview" loading="lazy">
   <span class="absolute inset-0 flex items-center justify-center pointer-events-none">
     <span class="w-14 h-14 rounded-full bg-black/50 backdrop-blur-sm flex items-center justify-center">
       <svg class="w-6 h-6 text-white ml-0.5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
     </span>
   </span>
-        </div>
-        <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:w-[38%]">
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 1)" aria-label="View Project 2 — detail view full-size">
-  <img src="CAD/proj2/1.jpg" alt="Project 2 — detail view" loading="lazy">
-          </div>
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj2/main.mp4','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 2)" aria-label="View Project 2 — detail view full-size">
-  <img src="CAD/proj2/2.jpg" alt="Project 2 — detail view" loading="lazy">
           </div>
         </div>
       </div>
       <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">V6 Engine</p>
+    </div>
+
+    <div class="mb-16 last:mb-0">
+      <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
+        <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 0)" aria-label="View RC Helicopter — main render full-size">
+  <img src="CAD/proj2/main.jpg" alt="RC Helicopter — main render" loading="lazy">
+        </div>
+        <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:w-[38%]">
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 1)" aria-label="View RC Helicopter — detail view full-size">
+  <img src="CAD/proj2/1.jpg" alt="RC Helicopter — detail view" loading="lazy">
+          </div>
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj2/main.jpg','CAD/proj2/1.jpg','CAD/proj2/2.jpg'], 2)" aria-label="View RC Helicopter — detail view full-size">
+  <img src="CAD/proj2/2.jpg" alt="RC Helicopter — detail view" loading="lazy">
+          </div>
+        </div>
+      </div>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">RC Helicopter</p>
     </div>
 
     <!-- EDIT ME: third featured project placeholder — swap the CAD/proj3/... paths
@@ -517,14 +517,14 @@ tailwind.config = {
          couple of detail shots), and update the caption below. -->
     <div class="mb-16 last:mb-0">
       <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
-        <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" aria-label="View Mechanical Dryer with Solar Heat Collector — main render full-size">
+        <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" aria-label="View Mechanical Dryer with Solar Heat Collector — main render full-size">
   <img src="CAD/proj3/main.jpg" alt="Mechanical Dryer with Solar Heat Collector — main render" loading="lazy">
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:w-[38%]">
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
   <img src="CAD/proj3/1.jpg" alt="Mechanical Dryer with Solar Heat Collector — detail view" loading="lazy">
           </div>
-          <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
   <img src="CAD/proj3/2.jpg" alt="Mechanical Dryer with Solar Heat Collector — detail view" loading="lazy">
           </div>
         </div>
@@ -538,49 +538,49 @@ tailwind.config = {
       <div class="mb-14">
         <div class="flex flex-wrap justify-start gap-3 max-w-[90%] mx-auto">
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" aria-label="View RC Helicopter full-size">
-  <img src="CAD/3D/1.jpg" alt="RC Helicopter — main render" loading="lazy">
-            </div>
-            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">RC Helicopter</p>
-          </div>
-          <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" aria-label="View V6 Engine full-size">
-  <img src="CAD/3D/2.jpg" alt="V6 Engine — main render" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" aria-label="View V6 Engine full-size">
+  <img src="CAD/3D/1.jpg" alt="V6 Engine — main render" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">V6 Engine</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" aria-label="View RC Helicopter full-size">
+  <img src="CAD/3D/2.jpg" alt="RC Helicopter — main render" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">RC Helicopter</p>
+          </div>
+          <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector full-size">
   <img src="CAD/3D/3.jpg" alt="Mechanical Dryer with Solar Heat Collector" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Mechanical Dryer with Solar Heat Collector</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" aria-label="View Differential Gearbox full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" aria-label="View Differential Gearbox full-size">
   <img src="CAD/3D/4.jpg" alt="Differential Gearbox" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Differential Gearbox</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" aria-label="View Multiprocessing Machine for Root Crops full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" aria-label="View Multiprocessing Machine for Root Crops full-size">
   <img src="CAD/3D/5.jpg" alt="Multiprocessing Machine for Root Crops" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Multiprocessing Machine for Root Crops</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" aria-label="View Corner Clamp full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" aria-label="View Corner Clamp full-size">
   <img src="CAD/3D/6.jpg" alt="Corner Clamp" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Corner Clamp</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" aria-label="View Hydraulic Jack full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" aria-label="View Hydraulic Jack full-size">
   <img src="CAD/3D/7.jpg" alt="Hydraulic Jack" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Hydraulic Jack</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" aria-label="View Soda Bottle full-size">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" aria-label="View Soda Bottle full-size">
   <img src="CAD/3D/8.jpg" alt="Soda Bottle" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Soda Bottle</p>
@@ -594,26 +594,26 @@ tailwind.config = {
       <div class="mb-14">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 0)" aria-label="View CFD Simulation 1 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 0)" aria-label="View CFD Simulation 1 full-size">
   <img src="CAD/simulations/cfd1.gif" alt="CFD Simulation 1" loading="lazy">
           </div>
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 1)" aria-label="View CFD Simulation 2 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 1)" aria-label="View CFD Simulation 2 full-size">
   <img src="CAD/simulations/cfd2.gif" alt="CFD Simulation 2" loading="lazy">
           </div>
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 2)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 2)" aria-label="View CFD Simulation 3 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 2)" @keydown.enter="openLightbox(['CAD/simulations/cfd1.gif','CAD/simulations/cfd2.gif','CAD/simulations/cfd3.gif'], 2)" aria-label="View CFD Simulation 3 full-size">
   <img src="CAD/simulations/cfd3.gif" alt="CFD Simulation 3" loading="lazy">
           </div>
         </div>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">Computational Fluid Dynamics (CFD)</p>
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 max-w-[90%] mx-auto">
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 0)" aria-label="View FEA Simulation 1 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 0)" aria-label="View FEA Simulation 1 full-size">
   <img src="CAD/simulations/fea1.gif" alt="FEA Simulation 1" loading="lazy">
           </div>
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 1)" aria-label="View FEA Simulation 2 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 1)" aria-label="View FEA Simulation 2 full-size">
   <img src="CAD/simulations/fea2.jpg" alt="FEA Simulation 2" loading="lazy">
           </div>
-          <div class="pf aspect-[64/35] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 2)" aria-label="View FEA Simulation 3 full-size">
+          <div class="pf aspect-[64/35] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/simulations/fea1.gif','CAD/simulations/fea2.jpg','CAD/simulations/fea3.jpg'], 2)" aria-label="View FEA Simulation 3 full-size">
   <img src="CAD/simulations/fea3.jpg" alt="FEA Simulation 3" loading="lazy">
           </div>
         </div>
@@ -625,23 +625,23 @@ tailwind.config = {
     <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-technical" :class="tab === 'technical' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'technical'">
 
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
-          <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View Technical Drawing 1 full-size">
+          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View Technical Drawing 1 full-size">
   <img src="CAD/2D/1.jpg" alt="Technical Drawing 1" loading="lazy">
           </div>
-          <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View Technical Drawing 2 full-size">
+          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View Technical Drawing 2 full-size">
   <img src="CAD/2D/2.jpg" alt="Technical Drawing 2" loading="lazy">
           </div>
-          <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View Technical Drawing 3 full-size">
+          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View Technical Drawing 3 full-size">
   <img src="CAD/2D/3.jpg" alt="Technical Drawing 3" loading="lazy">
           </div>
         </div>
         <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">Steering Linkage</p>
 
         <div class="flex flex-col sm:flex-row justify-start gap-3 mt-6 max-w-[90%] mx-auto">
-          <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View Technical Drawing 4 full-size">
+          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View Technical Drawing 4 full-size">
   <img src="CAD/2D/4.jpg" alt="Technical Drawing 4" loading="lazy">
           </div>
-          <div class="pf aspect-[82/59] rounded-2xl cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View Technical Drawing 5 full-size">
+          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View Technical Drawing 5 full-size">
   <img src="CAD/2D/5.jpg" alt="Technical Drawing 5" loading="lazy">
           </div>
         </div>
@@ -655,20 +655,20 @@ tailwind.config = {
     <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-manufacturing" :class="tab === 'manufacturing' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'manufacturing'">
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
-        <div class="pf aspect-[16/9] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.mp4'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.mp4'], 0)" aria-label="Play CNC programming simulation 1 video">
-  <img src="CAD/manufacturing/cnc1.gif" alt="CNC programming simulation 1 — preview" loading="lazy">
+        <div class="pf aspect-[16/9] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 0)" aria-label="View CNC programming simulation 1 full-size">
+  <img src="CAD/manufacturing/cnc1.gif" alt="CNC programming simulation 1" loading="lazy">
         </div>
-        <div class="pf aspect-[16/9] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc2.mp4'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc2.mp4'], 0)" aria-label="Play CNC programming simulation 2 video">
-  <img src="CAD/manufacturing/cnc2.gif" alt="CNC programming simulation 2 — preview" loading="lazy">
+        <div class="pf aspect-[16/9] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 1)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 1)" aria-label="View CNC programming simulation 2 full-size">
+  <img src="CAD/manufacturing/cnc2.gif" alt="CNC programming simulation 2" loading="lazy">
         </div>
       </div>
       <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">CNC Programming Simulation</p>
 
       <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 mt-6 max-w-[90%] mx-auto">
-        <div class="pf aspect-[16/9] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 0)" aria-label="View 3D printing screenshot 1 full-size">
+        <div class="pf aspect-[16/9] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 0)" aria-label="View 3D printing screenshot 1 full-size">
   <img src="CAD/manufacturing/3dp1.jpg" alt="3D printing screenshot 1" loading="lazy">
         </div>
-        <div class="pf aspect-[16/9] rounded-2xl cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 1)" aria-label="View 3D printing screenshot 2 full-size">
+        <div class="pf aspect-[16/9] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/manufacturing/3dp1.jpg','CAD/manufacturing/3dp2.jpg'], 1)" aria-label="View 3D printing screenshot 2 full-size">
   <img src="CAD/manufacturing/3dp2.jpg" alt="3D printing screenshot 2" loading="lazy">
         </div>
       </div>
