@@ -490,29 +490,29 @@ tailwind.config = {
       }"
       x-init="syncHeight(); window.addEventListener('resize', () => syncHeight())">
 
-      <div class="grid grid-cols-3 sm:flex sm:flex-wrap items-stretch sm:items-center gap-1 sm:gap-2 border-b border-zinc-200 dark:border-zinc-800 mb-10" role="tablist">
+      <div class="grid grid-cols-3 sm:flex sm:flex-wrap items-stretch sm:items-center gap-0.5 sm:gap-2 border-b border-zinc-200 dark:border-zinc-800 mb-10" role="tablist">
         <button @click="switchTab('featured')" role="tab" :aria-selected="tab==='featured'"
-          class="relative shrink-0 px-2 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden text-center">
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='featured' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='featured' ? 'text-white' : 'text-accent hover:text-accent-light'">Featured Projects</span>
         </button>
         <button @click="switchTab('3d')" role="tab" :aria-selected="tab==='3d'"
-          class="relative shrink-0 px-2 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden text-center">
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='3d' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='3d' ? 'text-white' : 'text-accent hover:text-accent-light'">3D Modelling</span>
         </button>
         <button @click="switchTab('simulation')" role="tab" :aria-selected="tab==='simulation'"
-          class="relative shrink-0 px-2 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden text-center">
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='simulation' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='simulation' ? 'text-white' : 'text-accent hover:text-accent-light'">Simulation</span>
         </button>
         <button @click="switchTab('technical')" role="tab" :aria-selected="tab==='technical'"
-          class="relative shrink-0 px-2 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden text-center">
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='technical' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='technical' ? 'text-white' : 'text-accent hover:text-accent-light'">Technical Drawing</span>
         </button>
         <button @click="switchTab('manufacturing')" role="tab" :aria-selected="tab==='manufacturing'"
-          class="relative shrink-0 px-2 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-sm font-medium overflow-hidden text-center">
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='manufacturing' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='manufacturing' ? 'text-white' : 'text-accent hover:text-accent-light'">Manufacturing</span>
         </button>
@@ -709,8 +709,8 @@ tailwind.config = {
             <div class="absolute inset-x-5 top-0 h-5 bg-zinc-500 dark:bg-zinc-600 rounded-t-lg shadow-sm"></div>
             <div class="absolute inset-x-2 top-3 h-5 bg-zinc-400 dark:bg-zinc-400 rounded-t-lg shadow-sm"></div>
 
-            <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Sheet Metal Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
-  <img :src="pages[page]" alt="Sheet Metal Drawing" loading="lazy">
+            <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Sheet Metal/Flat Pattern Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
+  <img :src="pages[page]" alt="Sheet Metal/Flat Pattern Drawing" loading="lazy">
             </div>
 
             <button @click.stop="page = (page - 1 + pages.length) % pages.length" aria-label="Previous page" class="absolute -left-9 sm:-left-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
@@ -727,7 +727,7 @@ tailwind.config = {
             </template>
           </div>
 
-          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Sheet Metal Drawing</p>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Sheet Metal/Flat Pattern Drawing</p>
         </div>
       </div><!-- /tab: technical -->
 
