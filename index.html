@@ -105,10 +105,59 @@ tailwind.config = {
 
   [x-cloak]{display:none!important}
 
+  /* ══════════════════════════════════════════════════════════════════
+     PRINT STYLES — lets recruiters print or "Save as PDF" a clean,
+     ink-friendly, fully-expanded version of the site (no dark background,
+     no overlapping tabs, no nav/interactive chrome).
+     ══════════════════════════════════════════════════════════════════ */
+  @media print {
+    /* force light, ink-friendly colors everywhere, overriding the site's
+       hardcoded dark theme */
+    html, body, section, div, header, footer, article {
+      background: #ffffff !important;
+      color: #18181b !important;
+      box-shadow: none !important;
+    }
+    html{zoom:100%!important}
+
+    /* hide interactive/navigational chrome that's meaningless on paper */
+    header, #mobile-menu, [role="tablist"], .shimmer::after,
+    [x-show="lightboxImage"], [x-show="mobileMenuOpen"] { display: none !important; }
+
+    /* hide decorative background images/blurs (aria-hidden) */
+    img[aria-hidden="true"] { display: none !important; }
+
+    /* make sure every scroll-reveal element is fully visible on the page */
+    .reveal { opacity: 1 !important; transform: none !important; }
+
+    /* un-stack the portfolio tabs: instead of overlapping in one grid cell,
+       print every category (Featured Projects, 3D Modelling, Simulation,
+       Technical Drawing, Manufacturing) one after another, fully expanded */
+    .grid[style*="height"] { height: auto !important; overflow: visible !important; display: block !important; }
+    .col-start-1.row-start-1 {
+      position: static !important;
+      grid-column: auto !important;
+      grid-row: auto !important;
+      opacity: 1 !important;
+      display: block !important;
+      page-break-inside: avoid;
+      margin-bottom: 2rem;
+    }
+
+    /* avoid splitting a project card or image across two pages where possible */
+    .pf, article { break-inside: avoid; }
+
+    a[href]:after { content: "" !important; } /* don't print raw URLs after links */
+  }
+
 </style>
 </head>
 
 <body class="bg-accent-soft dark:bg-zinc-950 text-zinc-900 dark:text-zinc-100 antialiased" @contextmenu.prevent="">
+
+<!-- Skip-to-content link: invisible until keyboard-focused, lets keyboard/screen-reader
+     users jump straight past the nav to the main content instead of tabbing through it. -->
+<a href="#home" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[100] focus:bg-accent focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:font-medium focus:shadow-lg">Skip to content</a>
 
 <!-- ═══════════════════════════════════════════════════════════════
      NAVIGATION BAR
@@ -156,7 +205,7 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      HERO — first thing visitors see
      ═══════════════════════════════════════════════════════════════ -->
-<section id="home" class="relative flex items-center pt-20 pb-12 sm:pt-32 sm:pb-20 overflow-hidden">
+<section id="home" class="relative flex items-center pt-20 pb-12 sm:pt-32 sm:pb-20 overflow-hidden scroll-mt-16">
   <!-- EDIT ME: optional background image for this section. Replace the src with
        your own image. Adjust opacity-20 below (try opacity-10 through opacity-40)
        to control how visible it is behind the text — higher number = more visible. -->
@@ -230,7 +279,7 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      SKILLS / SOFTWARE — replaces the old "Services" section
      ═══════════════════════════════════════════════════════════════ -->
-<section id="skills" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
+<section id="skills" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden scroll-mt-16">
   <div class="absolute top-0 left-1/4 w-[26rem] h-[26rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
   <div class="absolute bottom-0 right-0 w-[22rem] h-[22rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
@@ -248,7 +297,7 @@ tailwind.config = {
          2) save it in an "assets/logos" folder next to this HTML file,
          3) replace a badge's contents with <img src="assets/logos/yourfile.png" class="w-7 h-7 object-contain">
          Duplicate a badge <div> to add more tools to a category. -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-start md:items-stretch gap-4 sm:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-start gap-4 sm:gap-6">
 
       <article class="reveal d1 card-h group bg-zinc-800/60 rounded-2xl p-4 sm:p-8 border border-zinc-700 hover:border-accent/40">
         <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">CAD &amp; 3D Modelling</h3>
@@ -391,27 +440,27 @@ tailwind.config = {
 
   <!-- Previous button — only shown when the current image belongs to a multi-image gallery -->
   <button type="button" x-show="lightboxGallery.length > 1" @click.stop="lightboxPrev()" aria-label="Previous image"
-    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm ring-1 ring-white/10 text-white transition-colors">
     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
   </button>
 
   <!-- Next button -->
   <button type="button" x-show="lightboxGallery.length > 1" @click.stop="lightboxNext()" aria-label="Next image"
-    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm ring-1 ring-white/10 text-white transition-colors">
     <svg class="w-5 h-5 sm:w-6 sm:h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
   </button>
 
   <!-- Image counter, e.g. "2 / 5" -->
   <div x-show="lightboxGallery.length > 1" @click.stop
-    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs sm:text-sm font-medium text-white bg-white/10 px-3 py-1 rounded-full"
+    class="absolute bottom-6 left-1/2 -translate-x-1/2 text-xs sm:text-sm font-medium text-white bg-black/50 backdrop-blur-sm ring-1 ring-white/10 px-3 py-1 rounded-full"
     x-text="(lightboxIndex + 1) + ' / ' + lightboxGallery.length"></div>
 
   <button type="button" @click.stop="closeLightbox()" aria-label="Close"
-    class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors">
+    class="absolute top-6 right-6 w-10 h-10 flex items-center justify-center rounded-full bg-black/50 hover:bg-black/70 backdrop-blur-sm ring-1 ring-white/10 text-white transition-colors">
     <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
   </button>
 </div>
-<section id="projects" class="relative py-24 overflow-hidden bg-zinc-50 dark:bg-zinc-900">
+<section id="projects" class="relative py-24 overflow-hidden bg-zinc-50 dark:bg-zinc-900 scroll-mt-16">
   <div class="absolute top-1/4 right-0 w-[32rem] h-[32rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
   <div class="absolute bottom-1/4 left-0 w-[24rem] h-[24rem] bg-accent/10 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
   <div class="absolute top-1/2 left-1/3 w-[26rem] h-[26rem] bg-accent/5 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
@@ -624,28 +673,62 @@ tailwind.config = {
 
     <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-technical" :class="tab === 'technical' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'technical'">
 
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
-          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 0)" aria-label="View Technical Drawing 1 full-size">
-  <img src="CAD/2D/1.jpg" alt="Technical Drawing 1" loading="lazy">
-          </div>
-          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 1)" aria-label="View Technical Drawing 2 full-size">
-  <img src="CAD/2D/2.jpg" alt="Technical Drawing 2" loading="lazy">
-          </div>
-          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" @keydown.enter="openLightbox(['CAD/2D/1.jpg','CAD/2D/2.jpg','CAD/2D/3.jpg'], 2)" aria-label="View Technical Drawing 3 full-size">
-  <img src="CAD/2D/3.jpg" alt="Technical Drawing 3" loading="lazy">
-          </div>
-        </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">Steering Linkage</p>
+        <!-- Assembly/Detail Drawing: card carousel — one page shown at a time, with
+             prev/next arrows, page dots, and a subtle stacked-edge hint behind the
+             card to signal "there are more pages." Clicking the card still opens the
+             full lightbox (starting at whichever page is currently shown). -->
+        <div class="mb-10 last:mb-0" x-data="{ page: 0, pages: ['CAD/2D/ad1.jpg','CAD/2D/ad2.jpg','CAD/2D/ad3.jpg'] }">
+          <div class="relative w-4/5 sm:w-full sm:max-w-2xl mx-auto pt-6">
+            <div class="absolute inset-x-5 top-0 h-5 bg-zinc-500 dark:bg-zinc-600 rounded-t-lg shadow-sm"></div>
+            <div class="absolute inset-x-2 top-3 h-5 bg-zinc-400 dark:bg-zinc-400 rounded-t-lg shadow-sm"></div>
 
-        <div class="flex flex-col sm:flex-row justify-start gap-3 mt-6 max-w-[90%] mx-auto">
-          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 0)" aria-label="View Technical Drawing 4 full-size">
-  <img src="CAD/2D/4.jpg" alt="Technical Drawing 4" loading="lazy">
+            <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Assembly/Detail Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
+  <img :src="pages[page]" alt="Assembly/Detail Drawing" loading="lazy">
+            </div>
+
+            <button @click.stop="page = (page - 1 + pages.length) % pages.length" aria-label="Previous page" class="absolute -left-9 sm:-left-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button @click.stop="page = (page + 1) % pages.length" aria-label="Next page" class="absolute -right-9 sm:-right-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
           </div>
-          <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in w-full sm:w-[calc((100%-0.75rem)/2)]" role="button" tabindex="0" @click="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" @keydown.enter="openLightbox(['CAD/2D/4.jpg','CAD/2D/5.jpg'], 1)" aria-label="View Technical Drawing 5 full-size">
-  <img src="CAD/2D/5.jpg" alt="Technical Drawing 5" loading="lazy">
+
+          <div class="flex justify-center gap-1.5 mt-3">
+            <template x-for="(p, i) in pages" :key="i">
+              <button @click="page = i" :class="page === i ? 'bg-accent w-4' : 'bg-zinc-300 dark:bg-zinc-600 w-1.5'" class="h-1.5 rounded-full transition-all" :aria-label="'Go to page ' + (i+1)"></button>
+            </template>
           </div>
+
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Assembly/Detail Drawing</p>
         </div>
-        <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">4 Cylinder In-Line</p>
+
+        <!-- Sheet Metal Drawing: same carousel pattern, 2 pages -->
+        <div class="mb-10 last:mb-0" x-data="{ page: 0, pages: ['CAD/2D/sm1.jpg','CAD/2D/sm2.jpg','CAD/2D/sm3.jpg'] }">
+          <div class="relative w-4/5 sm:w-full sm:max-w-2xl mx-auto pt-6">
+            <div class="absolute inset-x-5 top-0 h-5 bg-zinc-500 dark:bg-zinc-600 rounded-t-lg shadow-sm"></div>
+            <div class="absolute inset-x-2 top-3 h-5 bg-zinc-400 dark:bg-zinc-400 rounded-t-lg shadow-sm"></div>
+
+            <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Sheet Metal Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
+  <img :src="pages[page]" alt="Sheet Metal Drawing" loading="lazy">
+            </div>
+
+            <button @click.stop="page = (page - 1 + pages.length) % pages.length" aria-label="Previous page" class="absolute -left-9 sm:-left-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/></svg>
+            </button>
+            <button @click.stop="page = (page + 1) % pages.length" aria-label="Next page" class="absolute -right-9 sm:-right-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
+              <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </button>
+          </div>
+
+          <div class="flex justify-center gap-1.5 mt-3">
+            <template x-for="(p, i) in pages" :key="i">
+              <button @click="page = i" :class="page === i ? 'bg-accent w-4' : 'bg-zinc-300 dark:bg-zinc-600 w-1.5'" class="h-1.5 rounded-full transition-all" :aria-label="'Go to page ' + (i+1)"></button>
+            </template>
+          </div>
+
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-center mt-2">Sheet Metal Drawing</p>
+        </div>
       </div><!-- /tab: technical -->
 
     <!-- EDIT ME: Manufacturing tab — CNC programming simulation videos + 3D print
@@ -686,7 +769,7 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      ABOUT — bio, education, and skill tags
      ═══════════════════════════════════════════════════════════════ -->
-<section id="background" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden">
+<section id="background" class="relative py-24 bg-zinc-50 dark:bg-zinc-900/40 overflow-hidden scroll-mt-16">
   <!-- EDIT ME: optional background image for this section, same idea as the hero
        background further up. Leave the src as-is (a blank placeholder) if you
        don't want one, or point it at your own image, e.g. "profile/bg2.jpg".
@@ -758,7 +841,7 @@ tailwind.config = {
 <!-- ═══════════════════════════════════════════════════════════════
      CONTACT — heading + links (email, LinkedIn)
      ═══════════════════════════════════════════════════════════════ -->
-<section id="contact" class="py-24">
+<section id="contact" class="py-24 scroll-mt-16">
   <div class="max-w-6xl mx-auto px-6">
     <div class="bg-zinc-900 dark:bg-zinc-800 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
