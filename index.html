@@ -42,7 +42,7 @@
 <!-- Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&family=Space+Grotesk:wght@400;500;600;700&family=Sora:wght@600;700;800&display=swap" rel="stylesheet">
 
 <!-- ══════════════════════════════════════════════════════════════
      THEME CONFIG: change the accent color here and it updates everywhere
@@ -52,7 +52,7 @@ tailwind.config = {
   darkMode: 'class',
   theme: {
     extend: {
-      fontFamily: { display: ['Inter','sans-serif'], body: ['Inter','sans-serif'], tech: ['Space Grotesk','sans-serif'] },
+      fontFamily: { display: ['Inter','sans-serif'], body: ['Inter','sans-serif'], tech: ['Space Grotesk','sans-serif'], hero: ['Sora','sans-serif'] },
       colors: {
         accent: '#F97316',         // primary accent — buttons, links, icons (vibrant orange)
         'accent-light': '#EA580C', // secondary tone — hover/pressed states (deeper orange)
@@ -98,6 +98,13 @@ tailwind.config = {
   /* image containers keep a consistent crop */
   .pf{position:relative;overflow:hidden;background:#d4d4d8}
   .pf img{width:100%;height:100%;object-fit:cover;display:block}
+
+  /* subtle lift/zoom on hover for clickable gallery thumbnails (not decorative
+     images like the profile photo, which don't have cursor-zoom-in) */
+  .pf.cursor-zoom-in{transition:transform .25s cubic-bezier(.4,0,.2,1),box-shadow .25s ease}
+  .pf.cursor-zoom-in:hover{transform:scale(1.03);box-shadow:0 10px 28px rgba(0,0,0,.18)}
+  .pf.cursor-zoom-in img{transition:transform .25s ease}
+  .pf.cursor-zoom-in:hover img{transform:scale(1.06)}
 
   /* card lift on hover */
   .card-h{transition:transform .28s cubic-bezier(.4,0,.2,1),border-color .18s}
@@ -217,60 +224,69 @@ tailwind.config = {
   <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-[1.4fr_1fr] md:grid-cols-[1.15fr_1fr] gap-3 sm:gap-8 md:gap-12 items-center">
+    <div class="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr] md:grid-cols-[1fr_1.15fr] gap-3 sm:gap-8 md:gap-12 items-center">
 
-      <div>
-        <!-- EDIT ME: your name is long (22 characters) so this heading is sized down a
-             notch from the original template to keep it on two lines comfortably.
-             The photo now always sits to the right (even on mobile), so this column
-             is narrower on small screens than before — text-2xl/3xl on the low end
-             keeps it from wrapping too awkwardly. Adjust freely. -->
-        <h1 class="reveal d1 font-tech font-bold text-2xl sm:text-4xl md:text-5xl lg:text-6xl leading-[1.15] tracking-tight text-zinc-900 dark:text-white mb-4 sm:mb-6">
-          Hi, I'm <span class="text-accent">Engr. John Michael Feliciano</span>
-        </h1>
-
-        <!-- MOBILE-ONLY PHOTO: shown only below the sm breakpoint, sitting between
-             the heading and the description paragraph. Hidden entirely at sm and
-             up, where the original side-by-side photo (further down) takes over. -->
-        <div class="reveal d2 sm:hidden flex justify-center mb-5">
-          <div class="relative w-40 aspect-square">
-            <div class="absolute -inset-3 bg-accent/25 rounded-full blur-xl -z-10 pointer-events-none" aria-hidden="true"></div>
-            <div class="pf w-full h-full rounded-2xl">
-              <img src="profile/profile1.jpg" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
-            </div>
-            <div class="absolute -bottom-2 -left-2 bg-accent text-white font-display font-bold text-[9px] px-2 py-1 rounded-lg shadow-lg whitespace-nowrap">Open to opportunities</div>
+      <!-- EDIT ME: one single photo element. On mobile it now stacks ABOVE the
+           text (since the grid is a single column below sm), centered; at sm and
+           up it becomes the left column instead, same as before. -->
+      <div class="reveal d1 flex justify-center sm:justify-end mb-5 sm:mb-0">
+        <div class="relative w-32 sm:w-full sm:max-w-[13rem] md:max-w-[15rem] lg:max-w-[17rem] aspect-square">
+          <div class="absolute -inset-3 sm:-inset-4 bg-accent/25 rounded-full blur-lg sm:blur-2xl -z-10 pointer-events-none" aria-hidden="true"></div>
+          <div class="pf w-full h-full rounded-2xl sm:rounded-3xl !bg-accent-soft">
+            <img src="profile/profile1.png" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
           </div>
         </div>
+      </div>
 
-        <!-- EDIT ME: your one-line pitch -->
-        <p class="reveal d2 text-sm sm:text-lg md:text-xl text-zinc-500 dark:text-zinc-400 font-light leading-relaxed max-w-xl mb-6 sm:mb-10">
-          Registered Mechanical Engineer specializing in <strong class="font-medium text-zinc-700 dark:text-zinc-300">CAD and 3D modelling</strong>, with working knowledge of <strong class="font-medium text-zinc-700 dark:text-zinc-300">engineering simulation</strong>, <strong class="font-medium text-zinc-700 dark:text-zinc-300">machining</strong>, and <strong class="font-medium text-zinc-700 dark:text-zinc-300">multimedia design</strong>, developed through academic training, professional experience, and continuous learning.
+      <div>
+        <!-- EDIT ME: heading now uses font-display (Inter) instead of Space
+             Grotesk, and the red/cyan glitch text-shadow has been removed —
+             plain white text. -->
+        <h1 class="reveal d1 font-display font-bold text-2xl sm:text-4xl leading-[1.15] tracking-tight text-white whitespace-nowrap mb-4 sm:mb-6">
+          Hello, I'm <span class="text-accent">Engr. John</span>
+        </h1>
+
+        <!-- EDIT ME: description with an inline rotating word (your portfolio
+             categories) at the end. The word wipes out (a vertical bar sweeps left,
+             hiding it) then wipes back in with the next word (bar sweeps right,
+             revealing it) — a classic "typewriter cursor" transition, in your
+             site's orange accent. Add/remove/reorder items in the `words` array to
+             change what shows; `displayMs`/`wipeMs` control how long each word shows
+             and how fast the wipe animation runs. -->
+        <p class="reveal d2 text-sm sm:text-lg text-zinc-400 font-light leading-relaxed max-w-sm mb-6 sm:mb-10">
+          Registered Mechanical Engineer with dual degrees in Engineering and Technology.<br>
+          Skilled in
+          <span class="relative inline-block align-baseline" x-data="{
+              words: ['3D MODELLING','SIMULATION','TECHNICAL DRAWING','BIM MODELLING','MANUFACTURING'],
+              i: 0, reveal: 100, displayMs: 1800, wipeMs: 450,
+              async cycle() {
+                while (true) {
+                  await new Promise(r => setTimeout(r, this.displayMs));
+                  this.reveal = 0;
+                  await new Promise(r => setTimeout(r, this.wipeMs));
+                  this.i = (this.i + 1) % this.words.length;
+                  await new Promise(r => setTimeout(r, 30));
+                  this.reveal = 100;
+                }
+              }
+            }" x-init="cycle()">
+            <span class="font-bold text-white" :style="'clip-path: inset(0 ' + (100 - reveal) + '% 0 0); transition: clip-path ' + wipeMs + 'ms linear;'" x-text="words[i]"></span>
+            <span class="absolute top-0 bottom-0 w-[2px] bg-white" :style="'left:' + reveal + '%; transition: left ' + wipeMs + 'ms linear;'"></span>
+          </span>
         </p>
 
         <!-- flex (no wrap) so these two buttons always stay on one row, even on
-             narrow phones — padding/text shrink at the base size to help them fit. -->
+             narrow phones — padding/text shrink at the base size to help them fit.
+             rounded-lg instead of rounded-full, per request to reduce the corner
+             radius from a full pill shape. -->
         <div class="reveal d3 flex gap-1.5 sm:gap-4">
-          <a href="#projects" @click.prevent="goTo('projects')" class="shimmer inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-full hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-[10px] sm:text-sm whitespace-nowrap">
+          <a href="#projects" @click.prevent="goTo('projects')" class="shimmer inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-lg hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-[10px] sm:text-sm whitespace-nowrap">
             View my projects
           </a>
-          <a href="#contact" @click.prevent="goTo('contact')" class="inline-flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-full hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] sm:text-sm whitespace-nowrap">Get in touch</a>
+          <a href="#contact" @click.prevent="goTo('contact')" class="inline-flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] sm:text-sm whitespace-nowrap">Get in touch</a>
         </div>
       </div>
 
-      <!-- EDIT ME: replace with a photo of yourself. Only shown at sm and up now —
-           on mobile the photo above (between the heading and description) is used
-           instead. Sized with w-full + aspect-square (relative to its grid column)
-           instead of fixed pixel widths, so it can never overflow — lg:max-w-[18rem]
-           caps it from growing too large on wide desktop screens. -->
-      <div class="reveal d2 hidden sm:flex justify-end">
-        <div class="relative w-full sm:max-w-[13rem] md:max-w-[15rem] lg:max-w-[17rem] aspect-square">
-          <div class="absolute -inset-4 bg-accent/25 rounded-full blur-2xl -z-10 pointer-events-none" aria-hidden="true"></div>
-          <div class="pf w-full h-full rounded-2xl sm:rounded-3xl">
-            <img src="profile/profile1.jpg" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
-          </div>
-          <div class="absolute -bottom-2 -left-2 sm:-bottom-4 sm:-left-4 bg-accent text-white font-display font-bold text-[9px] sm:text-sm px-2 py-1 sm:px-4 sm:py-2.5 rounded-lg sm:rounded-2xl shadow-lg whitespace-nowrap">Open to opportunities</div>
-        </div>
-      </div>
 
     </div>
   </div>
@@ -297,25 +313,30 @@ tailwind.config = {
          2) save it in an "assets/logos" folder next to this HTML file,
          3) replace a badge's contents with <img src="assets/logos/yourfile.png" class="w-7 h-7 object-contain">
          Duplicate a badge <div> to add more tools to a category. -->
-    <div class="grid grid-cols-1 md:grid-cols-2 items-start gap-4 sm:gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 items-stretch gap-4 sm:gap-6">
 
       <article class="reveal d1 card-h group bg-zinc-800/60 rounded-2xl p-4 sm:p-8 border border-zinc-700 hover:border-accent/40">
-        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">CAD &amp; 3D Modelling</h3>
-        <div class="flex flex-wrap gap-2 sm:gap-3">
+        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Design &amp; Modelling</h3>
+        <div class="inline-grid grid-cols-5 gap-3 sm:gap-4">
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/autocad-icon.png" alt="AutoCAD logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/autocad-icon.png" alt="AutoCAD logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">AutoCAD</span>
           </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/inventor-icon.png" alt="Inventor logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/inventor-icon.png" alt="Inventor logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Inventor</span>
           </div>
+          <!-- EDIT ME: swap in a real Revit icon at Icons/revit-icon.png once you have one. -->
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/solidworks-icon.png" alt="SolidWorks logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/revit-icon.png" alt="Autodesk Revit logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Revit</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/solidworks-icon.png" alt="SolidWorks logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">SolidWorks</span>
           </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/creo-icon.png" alt="PTC Creo logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/creo-icon.png" alt="PTC Creo logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">PTC Creo</span>
           </div>
         </div>
@@ -325,17 +346,15 @@ tailwind.config = {
         <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Engineering Analysis</h3>
         <div class="flex flex-wrap gap-2 sm:gap-3">
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/fea-icon.png" alt="FEA Simulation logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/fea-icon-color.png" alt="FEA Simulation logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">FEA Simulation</span>
           </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/cfd-icon.png" alt="CFD Simulation logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/cfd-icon-color.png" alt="CFD Simulation logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">CFD Simulation</span>
           </div>
-          <!-- EDIT ME: swap in a real icon at Icons/motion-study-icon.png (matching the
-               style/size of the other icons in this section) once you have one. -->
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/motion-study-icon.png" alt="Motion Study logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/motion-study-icon-color.png" alt="Motion Study logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Motion Study</span>
           </div>
         </div>
@@ -343,34 +362,43 @@ tailwind.config = {
 
       <article class="reveal d3 card-h group bg-zinc-800/60 rounded-2xl p-4 sm:p-8 border border-zinc-700 hover:border-accent/40">
         <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Manufacturing &amp; Prototyping</h3>
-        <div class="flex flex-wrap gap-2 sm:gap-3">
+        <div class="inline-grid grid-cols-4 gap-2 sm:gap-3">
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/machining-icon.png" alt="Machining logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/machining-icon-color.png" alt="Machining logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Machining</span>
           </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/cnc-icon.png" alt="CNC Programming logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/cnc-icon-color.png" alt="CNC Programming logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">CNC Programming</span>
           </div>
-          <!-- EDIT ME: swap in a real icon at Icons/3d-slicing-icon.png (matching the
-               style/size of the other icons in this section) once you have one. -->
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/3d-slicing-icon.png" alt="3D Slicing logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/3d-slicing-icon-color.png" alt="3D Slicing logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">3D Slicing</span>
           </div>
         </div>
       </article>
 
       <article class="reveal d4 card-h group bg-zinc-800/60 rounded-2xl p-4 sm:p-8 border border-zinc-700 hover:border-accent/40">
-        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Tools &amp; Multimedia</h3>
-        <div class="flex flex-wrap gap-2 sm:gap-3">
+        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Documentation</h3>
+        <div class="inline-grid grid-cols-4 gap-2 sm:gap-3">
+          <!-- EDIT ME: swap in real icons at Icons/word-icon.png, Icons/excel-icon.png,
+               Icons/powerpoint-icon.png, and Icons/acrobat-icon.png (official Microsoft/Adobe
+               app icons) once you have them. -->
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/ms-icon.png" alt="Microsoft Office logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
-            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Microsoft Office</span>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/word-icon.png" alt="Microsoft Word logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Word</span>
           </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-11 h-11 sm:w-14 sm:h-14 rounded-xl bg-zinc-700 flex items-center justify-center overflow-hidden"><img src="Icons/adobe-icon.png" alt="Adobe Suite logo" class="w-7 h-7 sm:w-9 sm:h-9 rounded-md object-contain"></div>
-            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Adobe Suite</span>
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/excel-icon.png" alt="Microsoft Excel logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Excel</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/powerpoint-icon.png" alt="Microsoft PowerPoint logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">PowerPoint</span>
+          </div>
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/acrobat-icon.png" alt="Adobe Acrobat logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Acrobat</span>
           </div>
         </div>
       </article>
@@ -482,7 +510,7 @@ tailwind.config = {
          <div x-show="tab==='id'" x-cloak> ... </div> content block
          further down (see the pattern already used for the four tabs).
          ══════════════════════════════════════════════════════════════ -->
-    <div class="reveal d1 [overflow-anchor:none]" x-data="{
+    <div class="reveal d1 scroll-mt-24 [overflow-anchor:none]" x-data="{
         tab: 'featured',
         panelHeight: null,
         syncHeight() { this.panelHeight = this.$refs['panel-' + this.tab].offsetHeight; },
@@ -515,6 +543,11 @@ tailwind.config = {
           class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
           <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='manufacturing' ? 'scale-y-100' : 'scale-y-0'"></span>
           <span class="relative z-10 transition-colors duration-500" :class="tab==='manufacturing' ? 'text-white' : 'text-accent hover:text-accent-light'">Manufacturing</span>
+        </button>
+        <button @click="switchTab('bim')" role="tab" :aria-selected="tab==='bim'"
+          class="relative shrink-0 px-1 py-2.5 sm:px-5 sm:py-3 rounded-t-lg text-[11px] sm:text-sm font-medium overflow-hidden text-center whitespace-nowrap tracking-tight sm:tracking-normal">
+          <span class="absolute inset-0 bg-accent rounded-t-lg origin-bottom transition-transform duration-500 ease-out" :class="tab==='bim' ? 'scale-y-100' : 'scale-y-0'"></span>
+          <span class="relative z-10 transition-colors duration-500" :class="tab==='bim' ? 'text-white' : 'text-accent hover:text-accent-light'">BIM &amp; Facilities</span>
         </button>
       </div>
 
@@ -559,26 +592,76 @@ tailwind.config = {
         </div>
       </div>
       <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">RC Helicopter</p>
+      <div class="max-w-[90%] mx-auto mt-4 print:hidden">
+        <button type="button" @click="switchTab('3d'); $root.scrollIntoView({ behavior: 'smooth' })" class="text-xs sm:text-sm font-medium text-accent hover:text-accent-light transition-colors">See all 3D modelling &rarr;</button>
+      </div>
     </div>
 
-    <!-- EDIT ME: third featured project placeholder — swap the CAD/proj3/... paths
-         for your own images (same idea as proj1/proj2 above: a "main.jpg" plus a
-         couple of detail shots), and update the caption below. -->
+    <!-- Simulation: CFD + FEA. 2 columns x 1 row on tablet & desktop (sm and up),
+         1 column x 2 rows on mobile. Files live in CAD/simulations/. -->
+    <div class="mb-16 last:mb-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
+        <div>
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd.gif','CAD/simulations/fea.gif'], 0)" @keydown.enter="openLightbox(['CAD/simulations/cfd.gif','CAD/simulations/fea.gif'], 0)" aria-label="View Computational Fluid Dynamics full-size">
+  <img src="CAD/simulations/cfd.gif" alt="Computational Fluid Dynamics" loading="lazy">
+          </div>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Computational Fluid Dynamics</p>
+        </div>
+        <div>
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/simulations/cfd.gif','CAD/simulations/fea.gif'], 1)" @keydown.enter="openLightbox(['CAD/simulations/cfd.gif','CAD/simulations/fea.gif'], 1)" aria-label="View Finite Element Analysis full-size">
+  <img src="CAD/simulations/fea.gif" alt="Finite Element Analysis" loading="lazy">
+          </div>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Finite Element Analysis</p>
+        </div>
+      </div>
+      <div class="max-w-[90%] mx-auto mt-4 print:hidden">
+        <button type="button" @click="switchTab('simulation'); $root.scrollIntoView({ behavior: 'smooth' })" class="text-xs sm:text-sm font-medium text-accent hover:text-accent-light transition-colors">See all simulation &rarr;</button>
+      </div>
+    </div>
+
+    <!-- Manufacturing: CNC programming. Same layout as the Simulation block above.
+         Files live in CAD/manufacturing/. -->
+    <div class="mb-16 last:mb-0">
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
+        <div>
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 0)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 0)" aria-label="View CNC Lathe Simulation full-size">
+  <img src="CAD/manufacturing/cnc1.gif" alt="CNC Lathe Simulation" loading="lazy">
+          </div>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">CNC Lathe Simulation</p>
+        </div>
+        <div>
+          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 1)" @keydown.enter="openLightbox(['CAD/manufacturing/cnc1.gif','CAD/manufacturing/cnc2.gif'], 1)" aria-label="View CNC Milling Simulation full-size">
+  <img src="CAD/manufacturing/cnc2.gif" alt="CNC Milling Simulation" loading="lazy">
+          </div>
+          <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">CNC Milling Simulation</p>
+        </div>
+      </div>
+      <div class="max-w-[90%] mx-auto mt-4 print:hidden">
+        <button type="button" @click="switchTab('manufacturing'); $root.scrollIntoView({ behavior: 'smooth' })" class="text-xs sm:text-sm font-medium text-accent hover:text-accent-light transition-colors">See all manufacturing &rarr;</button>
+      </div>
+    </div>
+
+    <!-- EDIT ME: MEP Systems placeholder — you mentioned you're currently learning
+         this, so it's set up as a "coming soon" card for now. Once you have a real
+         project, replace this whole block with the same main+detail pattern used
+         above (see V6 Engine or RC Helicopter for reference), pointing at real
+         image files instead of these dashed placeholders. -->
     <div class="mb-16 last:mb-0">
       <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
-        <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in sm:w-[62%]" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 0)" aria-label="View Mechanical Dryer with Solar Heat Collector — main render full-size">
-  <img src="CAD/proj3/main.jpg" alt="Mechanical Dryer with Solar Heat Collector — main render" loading="lazy">
+        <div class="pf aspect-[711/400] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60 sm:w-[62%]">
+          <svg class="w-8 h-8 text-zinc-400 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V7l8-4v18M13 21V11l6 4v6M9 9v.01M9 12v.01M9 15v.01"/></svg>
+          <span class="text-xs text-zinc-400 dark:text-zinc-600">Project coming soon</span>
         </div>
         <div class="grid grid-cols-2 sm:grid-cols-1 gap-3 sm:w-[38%]">
-          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 1)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
-  <img src="CAD/proj3/1.jpg" alt="Mechanical Dryer with Solar Heat Collector — detail view" loading="lazy">
+          <div class="pf aspect-[711/400] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60">
+            <svg class="w-6 h-6 text-zinc-400 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V7l8-4v18M13 21V11l6 4v6M9 9v.01M9 12v.01M9 15v.01"/></svg>
           </div>
-          <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" @keydown.enter="openLightbox(['CAD/proj3/main.jpg','CAD/proj3/1.jpg','CAD/proj3/2.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector — detail view full-size">
-  <img src="CAD/proj3/2.jpg" alt="Mechanical Dryer with Solar Heat Collector — detail view" loading="lazy">
+          <div class="pf aspect-[711/400] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60">
+            <svg class="w-6 h-6 text-zinc-400 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V7l8-4v18M13 21V11l6 4v6M9 9v.01M9 12v.01M9 15v.01"/></svg>
           </div>
         </div>
       </div>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">Mechanical Dryer with Solar Heat Collector</p>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">MEP Systems — currently learning, project coming soon</p>
     </div>
 
     </div><!-- /tab: featured -->
@@ -587,50 +670,56 @@ tailwind.config = {
       <div class="mb-14">
         <div class="flex flex-wrap justify-start gap-3 max-w-[90%] mx-auto">
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 0)" aria-label="View V6 Engine full-size">
-  <img src="CAD/3D/1.jpg" alt="V6 Engine — main render" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 0)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 0)" aria-label="View V6 Engine full-size">
+  <img src="CAD/3D/v6-engine.jpg" alt="V6 Engine — main render" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">V6 Engine</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 1)" aria-label="View RC Helicopter full-size">
-  <img src="CAD/3D/2.jpg" alt="RC Helicopter — main render" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 1)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 1)" aria-label="View RC Helicopter full-size">
+  <img src="CAD/3D/rc-helicopter.jpg" alt="RC Helicopter — main render" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">RC Helicopter</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector full-size">
-  <img src="CAD/3D/3.jpg" alt="Mechanical Dryer with Solar Heat Collector" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 2)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 2)" aria-label="View Mechanical Dryer with Solar Heat Collector full-size">
+  <img src="CAD/3D/solar-dryer.jpg" alt="Mechanical Dryer with Solar Heat Collector" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Mechanical Dryer with Solar Heat Collector</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 3)" aria-label="View Differential Gearbox full-size">
-  <img src="CAD/3D/4.jpg" alt="Differential Gearbox" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 3)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 3)" aria-label="View Jet Engine Internal Assembly full-size">
+  <img src="CAD/3D/jet-engine.jpg" alt="Jet Engine Internal Assembly — main render" loading="lazy">
+            </div>
+            <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Jet Engine Internal Assembly</p>
+          </div>
+          <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 4)" aria-label="View Differential Gearbox full-size">
+  <img src="CAD/3D/differential-gearbox.jpg" alt="Differential Gearbox" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Differential Gearbox</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 4)" aria-label="View Multiprocessing Machine for Root Crops full-size">
-  <img src="CAD/3D/5.jpg" alt="Multiprocessing Machine for Root Crops" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 5)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 5)" aria-label="View Multiprocessing Machine for Root Crops full-size">
+  <img src="CAD/3D/root-crop-machine.jpg" alt="Multiprocessing Machine for Root Crops" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Multiprocessing Machine for Root Crops</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 5)" aria-label="View Corner Clamp full-size">
-  <img src="CAD/3D/6.jpg" alt="Corner Clamp" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 6)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 6)" aria-label="View Corner Clamp full-size">
+  <img src="CAD/3D/corner-clamp.jpg" alt="Corner Clamp" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Corner Clamp</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 6)" aria-label="View Hydraulic Jack full-size">
-  <img src="CAD/3D/7.jpg" alt="Hydraulic Jack" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 7)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 7)" aria-label="View Hydraulic Jack full-size">
+  <img src="CAD/3D/hydraulic-jack.jpg" alt="Hydraulic Jack" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Hydraulic Jack</p>
           </div>
           <div class="w-full sm:w-[calc((100%-0.75rem)/2)]">
-            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" @keydown.enter="openLightbox(['CAD/3D/1.jpg','CAD/3D/2.jpg','CAD/3D/3.jpg','CAD/3D/4.jpg','CAD/3D/5.jpg','CAD/3D/6.jpg','CAD/3D/7.jpg','CAD/3D/8.jpg'], 7)" aria-label="View Soda Bottle full-size">
-  <img src="CAD/3D/8.jpg" alt="Soda Bottle" loading="lazy">
+            <div class="pf aspect-[711/400] rounded-lg cursor-zoom-in" role="button" tabindex="0" @click="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 8)" @keydown.enter="openLightbox(['CAD/3D/v6-engine.jpg','CAD/3D/rc-helicopter.jpg','CAD/3D/solar-dryer.jpg','CAD/3D/jet-engine.jpg','CAD/3D/differential-gearbox.jpg','CAD/3D/root-crop-machine.jpg','CAD/3D/corner-clamp.jpg','CAD/3D/hydraulic-jack.jpg','CAD/3D/soda-bottle.jpg'], 8)" aria-label="View Soda Bottle full-size">
+  <img src="CAD/3D/soda-bottle.jpg" alt="Soda Bottle" loading="lazy">
             </div>
             <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2">Soda Bottle</p>
           </div>
@@ -683,7 +772,9 @@ tailwind.config = {
             <div class="absolute inset-x-2 top-3 h-5 bg-zinc-400 dark:bg-zinc-400 rounded-t-lg shadow-sm"></div>
 
             <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Assembly/Detail Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
-  <img :src="pages[page]" alt="Assembly/Detail Drawing" loading="lazy">
+  <template x-for="(img, i) in pages" :key="i">
+    <img :src="img" :class="page === i ? 'opacity-100' : 'opacity-0'" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out" alt="Assembly/Detail Drawing" loading="lazy">
+  </template>
             </div>
 
             <button @click.stop="page = (page - 1 + pages.length) % pages.length" aria-label="Previous page" class="absolute -left-9 sm:-left-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
@@ -710,7 +801,9 @@ tailwind.config = {
             <div class="absolute inset-x-2 top-3 h-5 bg-zinc-400 dark:bg-zinc-400 rounded-t-lg shadow-sm"></div>
 
             <div class="pf aspect-[82/59] rounded-lg cursor-zoom-in relative" role="button" tabindex="0" @click="openLightbox(pages, page)" @keydown.enter="openLightbox(pages, page)" :aria-label="'View Sheet Metal/Flat Pattern Drawing, page ' + (page+1) + ' of ' + pages.length + ', full-size'">
-  <img :src="pages[page]" alt="Sheet Metal/Flat Pattern Drawing" loading="lazy">
+  <template x-for="(img, i) in pages" :key="i">
+    <img :src="img" :class="page === i ? 'opacity-100' : 'opacity-0'" class="absolute inset-0 w-full h-full object-cover transition-opacity duration-300 ease-in-out" alt="Sheet Metal/Flat Pattern Drawing" loading="lazy">
+  </template>
             </div>
 
             <button @click.stop="page = (page - 1 + pages.length) % pages.length" aria-label="Previous page" class="absolute -left-9 sm:-left-14 top-1/2 -translate-y-1/2 w-8 h-8 sm:w-11 sm:h-11 rounded-full bg-white/70 dark:bg-zinc-800/70 backdrop-blur-sm ring-1 ring-black/5 dark:ring-white/10 shadow-md flex items-center justify-center text-accent hover:text-accent-light transition-colors">
@@ -758,6 +851,28 @@ tailwind.config = {
       <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">3D Printing</p>
 
     </div><!-- /tab: manufacturing -->
+
+    <!-- EDIT ME: BIM & Facilities — placeholder tab, ready for when you have real
+         Revit/BIM project content. Once you do, replace the placeholder cards below
+         with real thumbnails (copy the pattern used elsewhere, e.g. the CNC Programming
+         section above), and feel free to split this into sub-groups (e.g. "Floor Plans",
+         "MEP Coordination", "Facility Layout") the same way Manufacturing is split into
+         CNC Programming / 3D Printing, once you know what you'll actually have to show. -->
+    <div class="col-start-1 row-start-1 self-start transition-opacity duration-500 ease-out" x-ref="panel-bim" :class="tab === 'bim' ? 'opacity-100' : 'opacity-0'" :inert="tab !== 'bim'">
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 max-w-[90%] mx-auto">
+        <div class="pf aspect-[16/9] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60">
+          <svg class="w-7 h-7 text-zinc-400 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V7l8-4v18M13 21V11l6 4v6M9 9v.01M9 12v.01M9 15v.01"/></svg>
+          <span class="text-xs text-zinc-400 dark:text-zinc-600">Content coming soon</span>
+        </div>
+        <div class="pf aspect-[16/9] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60">
+          <svg class="w-7 h-7 text-zinc-400 dark:text-zinc-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M3 21h18M5 21V7l8-4v18M13 21V11l6 4v6M9 9v.01M9 12v.01M9 15v.01"/></svg>
+          <span class="text-xs text-zinc-400 dark:text-zinc-600">Content coming soon</span>
+        </div>
+      </div>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">Currently learning Revit &amp; BIM workflows — projects coming soon.</p>
+
+    </div><!-- /tab: bim -->
 
     </div><!-- /grid (stacks all tab panels so height stays constant) -->
 
@@ -990,6 +1105,43 @@ function app() {
     }
   }
 }
+</script>
+
+<!-- ═══════════════════════════════════════════════════════════════
+     BROKEN IMAGE FALLBACK — if any <img> on the site fails to load
+     (wrong filename, missing file, case-sensitivity mismatch, etc.),
+     this swaps it for a small "Image unavailable" placeholder instead
+     of the browser's default broken-image icon. Purely decorative
+     background images (marked aria-hidden="true") just quietly hide
+     instead, since they're not meant to be noticed either way.
+     Nothing to configure here — it applies automatically to every
+     image, current and future.
+     ═══════════════════════════════════════════════════════════════ -->
+<script>
+document.addEventListener('error', function (e) {
+  var img = e.target;
+  if (!(img instanceof HTMLImageElement) || img.dataset.fallbackApplied) return;
+  img.dataset.fallbackApplied = 'true';
+
+  // decorative background images: just disappear, no placeholder needed
+  if (img.getAttribute('aria-hidden') === 'true') {
+    img.style.display = 'none';
+    return;
+  }
+
+  var parent = img.parentElement;
+  if (parent && getComputedStyle(parent).position === 'static') {
+    parent.style.position = 'relative';
+  }
+  img.style.visibility = 'hidden';
+
+  var placeholder = document.createElement('div');
+  placeholder.className = 'absolute inset-0 flex flex-col items-center justify-center gap-1.5 bg-zinc-100 dark:bg-zinc-800 text-zinc-400 dark:text-zinc-600 rounded-[inherit] pointer-events-none';
+  placeholder.innerHTML =
+    '<svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14M4 8h16M4 4h16v16H4V4z"/></svg>' +
+    '<span class="text-[10px] font-medium">Image unavailable</span>';
+  if (parent) parent.appendChild(placeholder);
+}, true); // capture phase — the 'error' event does not bubble on <img> elements
 </script>
 
 </body>
