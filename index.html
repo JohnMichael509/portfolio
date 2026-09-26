@@ -224,27 +224,33 @@ tailwind.config = {
   <div class="absolute bottom-1/4 left-0 w-64 h-64 bg-zinc-800/30 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
 
   <div class="relative z-10 max-w-6xl mx-auto px-6 py-12 w-full">
-    <div class="grid grid-cols-1 sm:grid-cols-[1fr_1.4fr] md:grid-cols-[1fr_1.15fr] gap-3 sm:gap-8 md:gap-12 items-center">
+    <div class="flex flex-col sm:flex-row sm:justify-center gap-3 sm:gap-8 md:gap-12 sm:items-center w-full">
 
       <!-- EDIT ME: one single photo element. On mobile it now stacks ABOVE the
            text (since the grid is a single column below sm), centered; at sm and
            up it becomes the left column instead, same as before. -->
-      <div class="reveal d1 flex justify-center sm:justify-end mb-5 sm:mb-0">
-        <div class="relative w-32 sm:w-full sm:max-w-[13rem] md:max-w-[15rem] lg:max-w-[17rem] aspect-square">
+      <div class="reveal d1 flex justify-center sm:justify-end sm:shrink-0 mb-5 sm:mb-0">
+        <div class="relative w-44 sm:w-[13rem] md:w-[15rem] lg:w-[17rem] aspect-square">
           <div class="absolute -inset-3 sm:-inset-4 bg-accent/25 rounded-full blur-lg sm:blur-2xl -z-10 pointer-events-none" aria-hidden="true"></div>
-          <div class="pf w-full h-full rounded-2xl sm:rounded-3xl !bg-accent-soft">
+          <div class="pf w-full h-full rounded-2xl sm:rounded-3xl !bg-accent-soft shadow-xl shadow-black/40">
             <img src="profile/profile1.png" alt="John Michael Feliciano — Mechanical Engineer" loading="eager">
           </div>
         </div>
       </div>
 
-      <div>
+      <div class="sm:min-w-0">
         <!-- EDIT ME: heading now uses font-display (Inter) instead of Space
              Grotesk, and the red/cyan glitch text-shadow has been removed —
              plain white text. -->
-        <h1 class="reveal d1 font-display font-bold text-2xl sm:text-4xl leading-[1.15] tracking-tight text-white whitespace-nowrap mb-4 sm:mb-6">
-          Hello, I'm <span class="text-accent">Engr. John</span>
-        </h1>
+        <p class="reveal d1 font-display font-semibold text-sm sm:text-lg tracking-wide text-zinc-400 mb-1 sm:mb-2">
+          Hello, I'm
+        </p>
+        <div class="reveal d1 inline-block max-w-full">
+          <h1 class="font-display font-bold text-xl sm:text-4xl leading-[1.15] tracking-tight text-white">
+            <span class="text-accent">Engr. John Michael Feliciano</span>
+          </h1>
+          <div class="h-[2px] w-full bg-zinc-600 dark:bg-zinc-500 rounded-full mt-4 sm:mt-6 mb-4 sm:mb-6" aria-hidden="true"></div>
+        </div>
 
         <!-- EDIT ME: description with an inline rotating word (your portfolio
              categories) at the end. The word wipes out (a vertical bar sweeps left,
@@ -252,12 +258,17 @@ tailwind.config = {
              revealing it) — a classic "typewriter cursor" transition, in your
              site's orange accent. Add/remove/reorder items in the `words` array to
              change what shows; `displayMs`/`wipeMs` control how long each word shows
-             and how fast the wipe animation runs. -->
-        <p class="reveal d2 text-sm sm:text-lg text-zinc-400 font-light leading-relaxed max-w-sm mb-6 sm:mb-10">
-          Registered Mechanical Engineer with dual degrees in Engineering and Technology.<br>
-          Skilled in
-          <span class="relative inline-block align-baseline" x-data="{
-              words: ['3D MODELLING','SIMULATION','TECHNICAL DRAWING','BIM MODELLING','MANUFACTURING'],
+             and how fast the wipe animation runs. Sized one step down from before
+             (text-sm/text-base instead of text-sm/text-lg). Its max-width is a
+             calculated value matching the name heading's own rendered width at each
+             breakpoint (18.5rem to match the mobile name, 33rem for sm+), so the
+             right edge should line up with the name/divider above it. -->
+        <p class="reveal d2 text-sm sm:text-base text-zinc-400 font-light leading-relaxed max-w-[18.5rem] sm:max-w-[33rem] mb-4 sm:mb-6">
+          RMeE with dual degrees in Engineering and Technology, regional<br class="hidden sm:block">
+          CAD competition honors, and industry design experience.<br>
+          <span class="italic">Skilled in</span>
+          <span class="relative inline-block align-baseline italic" x-data="{
+              words: ['3D MODELLING','SIMULATION','TECHNICAL DRAWING','BIM - MEP SYSTEMS','RAPID PROTOTYPING','MACHINING'],
               i: 0, reveal: 100, displayMs: 1800, wipeMs: 450,
               async cycle() {
                 while (true) {
@@ -270,7 +281,7 @@ tailwind.config = {
                 }
               }
             }" x-init="cycle()">
-            <span class="font-bold text-white" :style="'clip-path: inset(0 ' + (100 - reveal) + '% 0 0); transition: clip-path ' + wipeMs + 'ms linear;'" x-text="words[i]"></span>
+            <span class="font-bold text-white pr-1.5" :style="'clip-path: inset(0 ' + (100 - reveal) + '% 0 0); transition: clip-path ' + wipeMs + 'ms linear;'" x-text="words[i]"></span>
             <span class="absolute top-0 bottom-0 w-[2px] bg-white" :style="'left:' + reveal + '%; transition: left ' + wipeMs + 'ms linear;'"></span>
           </span>
         </p>
@@ -280,8 +291,9 @@ tailwind.config = {
              rounded-lg instead of rounded-full, per request to reduce the corner
              radius from a full pill shape. -->
         <div class="reveal d3 flex gap-1.5 sm:gap-4">
-          <a href="#projects" @click.prevent="goTo('projects')" class="shimmer inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-lg hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-[10px] sm:text-sm whitespace-nowrap">
+          <a href="#projects" @click.prevent="goTo('projects')" class="shimmer group inline-flex items-center justify-center gap-1.5 sm:gap-2 bg-zinc-900 dark:bg-white text-white dark:text-zinc-900 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-lg hover:bg-zinc-700 dark:hover:bg-zinc-200 transition-colors text-[10px] sm:text-sm whitespace-nowrap">
             View my projects
+            <svg class="w-3.5 h-3.5 sm:w-4.5 sm:h-4.5 transition-transform group-hover:translate-y-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 9l7 7 7-7"/></svg>
           </a>
           <a href="#contact" @click.prevent="goTo('contact')" class="inline-flex items-center justify-center border border-zinc-300 dark:border-zinc-700 text-zinc-700 dark:text-zinc-300 font-medium px-2.5 py-1.5 sm:px-7 sm:py-3.5 rounded-lg hover:bg-zinc-50 dark:hover:bg-zinc-900 transition-colors text-[10px] sm:text-sm whitespace-nowrap">Get in touch</a>
         </div>
