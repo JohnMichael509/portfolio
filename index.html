@@ -418,33 +418,38 @@ tailwind.config = {
     </div>
 
     <!-- EDIT ME: certifications & awards, plus certificate images on the right.
-         Duplicate a bullet block to add more entries to the list. -->
+         Each entry is a timeline item — duplicate an <li> to add more. The node's
+         icon/border color marks the type (accent = license, zinc-300 = silver, amber-400 =
+         gold). The connecting line is drawn per item and stops at the last one automatically. -->
     <div class="reveal mt-16 grid lg:grid-cols-[1.3fr_1fr] gap-12 items-center">
       <div>
         <p class="text-sm font-medium text-accent uppercase tracking-widest mb-6">Certifications &amp; Awards</p>
-        <div class="space-y-6">
-          <div class="flex items-start gap-3.5">
-            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
-            <div>
-              <p class="text-base md:text-lg font-medium text-white">Registered Mechanical Engineer</p>
-              <p class="text-sm text-zinc-400 mt-0.5">Professional Regulation Commission • Oct 2025</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3.5">
-            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
-            <div>
-              <p class="text-base md:text-lg font-medium text-white">Silver Medal</p>
-              <p class="text-sm text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (Regional) • Nov 2021</p>
-            </div>
-          </div>
-          <div class="flex items-start gap-3.5">
-            <span class="w-2.5 h-2.5 mt-2 rounded-full bg-accent shrink-0"></span>
-            <div>
-              <p class="text-base md:text-lg font-medium text-white">Gold Medal</p>
-              <p class="text-sm text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (District) • Oct 2021</p>
-            </div>
-          </div>
-        </div>
+        <ol class="ml-5">
+          <li class="relative pl-9 pb-8 last:pb-0 before:absolute before:left-0 before:top-5 before:h-full before:w-px before:bg-zinc-700 last:before:hidden">
+            <span class="absolute left-0 top-0 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-900 border border-accent/50">
+              <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+            </span>
+            <p class="text-xs font-medium text-zinc-400 tracking-wide mb-1">Oct 2025</p>
+            <p class="text-base md:text-lg font-medium text-white">Registered Mechanical Engineer</p>
+            <p class="text-sm text-zinc-400 mt-0.5">Professional Regulation Commission</p>
+          </li>
+          <li class="relative pl-9 pb-8 last:pb-0 before:absolute before:left-0 before:top-5 before:h-full before:w-px before:bg-zinc-700 last:before:hidden">
+            <span class="absolute left-0 top-0 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-900 border border-zinc-400/50">
+              <svg class="w-5 h-5 text-zinc-300" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5l4 6.5 4-6.5"/><circle cx="12" cy="15" r="5.5" fill="currentColor" fill-opacity=".15"/><path d="M12 12.4l.71 1.83 1.95.1-1.52 1.24.51 1.9-1.65-1.07-1.65 1.07.51-1.9-1.52-1.24 1.95-.1z" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <p class="text-xs font-medium text-zinc-400 tracking-wide mb-1">Nov 2021</p>
+            <p class="text-base md:text-lg font-medium text-white">Silver Medal</p>
+            <p class="text-sm text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (Regional)</p>
+          </li>
+          <li class="relative pl-9 pb-8 last:pb-0 before:absolute before:left-0 before:top-5 before:h-full before:w-px before:bg-zinc-700 last:before:hidden">
+            <span class="absolute left-0 top-0 -translate-x-1/2 w-10 h-10 flex items-center justify-center rounded-full bg-zinc-900 border border-amber-400/40">
+              <svg class="w-5 h-5 text-amber-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 2.5l4 6.5 4-6.5"/><circle cx="12" cy="15" r="5.5" fill="currentColor" fill-opacity=".15"/><path d="M12 12.4l.71 1.83 1.95.1-1.52 1.24.51 1.9-1.65-1.07-1.65 1.07.51-1.9-1.52-1.24 1.95-.1z" fill="currentColor" stroke="none"/></svg>
+            </span>
+            <p class="text-xs font-medium text-zinc-400 tracking-wide mb-1">Oct 2021</p>
+            <p class="text-base md:text-lg font-medium text-white">Gold Medal</p>
+            <p class="text-sm text-zinc-400 mt-0.5">TESDA Skills Competition – Mechanical Engineering CAD (District)</p>
+          </li>
+        </ol>
       </div>
 
       <!-- EDIT ME: two overlapping certificate images. Replace the src's with your
