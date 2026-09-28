@@ -242,12 +242,12 @@ tailwind.config = {
         <!-- EDIT ME: heading now uses font-display (Inter) instead of Space
              Grotesk, and the red/cyan glitch text-shadow has been removed —
              plain white text. -->
-        <p class="reveal d1 font-display font-semibold text-sm sm:text-lg tracking-wide text-zinc-400 mb-1 sm:mb-2">
+        <p class="reveal d1 text-xs font-medium text-accent tracking-widest uppercase mb-3">
           Hello, I'm
         </p>
         <div class="reveal d1 inline-block max-w-full">
-          <h1 class="font-display font-bold text-xl sm:text-4xl leading-[1.15] tracking-tight text-white">
-            <span class="text-accent">Engr. John Michael Feliciano</span>
+          <h1 class="font-tech font-bold text-xl sm:text-[2.375rem] leading-[1.15] tracking-tight text-white">
+            <span class="text-white">Engr. John Michael Feliciano</span>
           </h1>
           <div class="h-[2px] w-full bg-zinc-600 dark:bg-zinc-500 rounded-full mt-4 sm:mt-6 mb-4 sm:mb-6" aria-hidden="true"></div>
         </div>
@@ -268,7 +268,7 @@ tailwind.config = {
           CAD competition honors, and industry design experience.<br>
           <span class="italic">Skilled in</span>
           <span class="relative inline-block align-baseline italic" x-data="{
-              words: ['3D MODELLING','SIMULATION','TECHNICAL DRAWING','BIM - MEP SYSTEMS','RAPID PROTOTYPING','MACHINING'],
+              words: ['TECHNICAL DRAFTING','3D MODELLING','SIMULATION','MEP SYSTEMS','RAPID PROTOTYPING','MACHINING'],
               i: 0, reveal: 100, displayMs: 1800, wipeMs: 450,
               async cycle() {
                 while (true) {
@@ -930,10 +930,10 @@ tailwind.config = {
         </div>
 
         <p class="reveal d2 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-4">
-          With degrees in both <strong class="font-medium text-zinc-700 dark:text-zinc-300">mechanical engineering and technology</strong>, I bring a blend of theoretical knowledge and hands-on manufacturing insight to the table. I am highly self-driven, a trait that led me to <strong class="font-medium text-zinc-700 dark:text-zinc-300">self-teach modern CAD platforms</strong>, <strong class="font-medium text-zinc-700 dark:text-zinc-300">represent my school in a competition</strong>, and take on freelance commissions.
+          With degrees in both <strong class="font-medium text-zinc-700 dark:text-zinc-300">mechanical engineering and technology</strong>, I bring a blend of theoretical knowledge and hands-on manufacturing insight to the table. I am highly self-driven, a trait that led me to <strong class="font-medium text-zinc-700 dark:text-zinc-300">self-teach modern CAD platforms</strong>, <strong class="font-medium text-zinc-700 dark:text-zinc-300">earn honors representing my school in a regional CAD competition</strong>, and take on freelance commissions.
         </p>
         <p class="reveal d3 text-zinc-500 dark:text-zinc-400 leading-relaxed mb-8">
-          Outside of formal projects, I find myself tinkering with different software — exploring various features just to see what they're capable of. Along the way, I've also picked up a few creative tools, like the Adobe Suite, which I use to edit and polish some of my other work.
+          Outside of formal projects, I find myself tinkering with different engineering software — exploring various tools and features just to sharpen my skills beyond what I've formally studied. That same curiosity is what keeps me picking up new technical ground on my own.
         </p>
 
         <div class="reveal d3">
@@ -970,7 +970,7 @@ tailwind.config = {
      ═══════════════════════════════════════════════════════════════ -->
 <section id="contact" class="py-24 scroll-mt-16">
   <div class="max-w-6xl mx-auto px-6">
-    <div class="bg-zinc-900 dark:bg-zinc-800 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden">
+    <div class="max-w-3xl mx-auto bg-zinc-900 dark:bg-zinc-800 rounded-2xl sm:rounded-3xl p-6 sm:p-10 md:p-16 relative overflow-hidden">
       <div class="absolute top-0 right-0 w-64 h-64 bg-accent/20 rounded-full blur-3xl pointer-events-none" aria-hidden="true"></div>
       <div class="absolute bottom-0 left-0 w-40 h-40 bg-accent/10 rounded-full blur-2xl pointer-events-none" aria-hidden="true"></div>
 
@@ -979,40 +979,46 @@ tailwind.config = {
         <div>
           <p class="reveal text-xs font-medium text-accent tracking-widest uppercase mb-3">Get in touch</p>
           <h2 class="reveal d1 font-tech font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
-          <p class="reveal d2 text-zinc-400 leading-relaxed mb-8">I'm open to freelance mechanical engineering commissions. <strong class="font-semibold text-white">Click</strong> any of the buttons to reach me directly through Messenger, email, or LinkedIn!</p>
+          <p class="reveal d2 text-zinc-400 leading-relaxed mb-6">Send me a message using the form, or reach me directly below.</p>
+
+          <!-- EDIT ME: compact direct-contact icon row (Messenger, email, LinkedIn),
+               replacing the old large link cards now that the form is the primary
+               contact method. Each is a circular button with a tooltip via
+               aria-label/title. -->
+          <div class="reveal d2 flex items-center gap-2">
+            <a href="https://m.me/johnmichaelfeliciano.509" rel="noopener noreferrer" target="_blank" aria-label="Message on Messenger" title="Messenger" class="w-12 h-12 flex items-center justify-center bg-zinc-800/60 hover:bg-accent/20 border border-zinc-700 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.084-2.242c1.09.301 2.246.464 3.447.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/></svg>
+            </a>
+            <a href="mailto:johnfeliciano.engr@gmail.com"
+               @click="navigator.clipboard.writeText('johnfeliciano.engr@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
+               aria-label="Email" title="Email" class="w-12 h-12 flex items-center justify-center bg-zinc-800/60 hover:bg-accent/20 border border-zinc-700 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+            </a>
+            <a href="https://www.linkedin.com/in/johnmichaelfeliciano/" rel="noopener noreferrer" target="_blank" aria-label="LinkedIn" title="LinkedIn" class="w-12 h-12 flex items-center justify-center bg-zinc-800/60 hover:bg-accent/20 border border-zinc-700 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            </a>
+            <span class="text-xs text-zinc-500" x-text="emailCopied ? 'Email copied!' : ''"></span>
+          </div>
         </div>
 
-        <div class="reveal d2 flex flex-col gap-4">
-          <a href="https://m.me/johnmichaelfeliciano.509" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
-            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
-              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.084-2.242c1.09.301 2.246.464 3.447.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/></svg>
-            </span>
-            <div class="min-w-0">
-              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5">Messenger</p>
-              <p class="text-sm font-medium text-white break-all">m.me/johnmichaelfeliciano.509</p>
-            </div>
-          </a>
-          <a href="mailto:johnfeliciano.engr@gmail.com"
-             @click="navigator.clipboard.writeText('johnfeliciano.engr@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
-             class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
-            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
-              <svg class="w-5 h-5 text-accent" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-            </span>
-            <div class="min-w-0">
-              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5" x-text="emailCopied ? 'Copied to clipboard!' : 'Email'"></p>
-              <p class="text-sm font-medium text-white break-all">johnfeliciano.engr@gmail.com</p>
-            </div>
-          </a>
-          <a href="https://www.linkedin.com/in/johnmichaelfeliciano/" rel="noopener noreferrer" target="_blank" class="group flex items-center gap-3 sm:gap-4 bg-zinc-800/60 hover:bg-zinc-800 border border-zinc-700 rounded-2xl p-4 sm:p-5 transition-colors">
-            <span class="w-11 h-11 sm:w-12 sm:h-12 flex items-center justify-center bg-accent/15 group-hover:bg-accent/25 rounded-xl shrink-0 transition-colors">
-              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
-            </span>
-            <div class="min-w-0">
-              <p class="text-xs text-zinc-400 uppercase tracking-wide mb-0.5">LinkedIn</p>
-              <p class="text-sm font-medium text-white truncate">@johnmichaelfeliciano</p>
-            </div>
-          </a>
-        </div>
+        <!-- EDIT ME: contact form. No backend/service is connected — on submit it
+             builds a mailto: link from the field values and opens it in the
+             visitor's own email client (works with zero setup, but depends on
+             them having one configured). To send silently through an actual
+             inbox instead, swap this @submit.prevent handler for a real POST to
+             a form service (e.g. Formspree: action="https://formspree.io/f/your-id"
+             method="POST", and remove @submit.prevent). -->
+        <form class="reveal d2 flex flex-col gap-3" x-data="{ cName: '', cEmail: '', cMessage: '' }" @submit.prevent="
+            const subject = encodeURIComponent('Portfolio inquiry from ' + cName);
+            const body = encodeURIComponent(cMessage + '\n\n— ' + cName + ' (' + cEmail + ')');
+            window.location.href = 'mailto:johnfeliciano.engr@gmail.com?subject=' + subject + '&body=' + body;
+          ">
+          <input type="text" x-model="cName" required placeholder="Your name" class="bg-zinc-800/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition">
+          <input type="email" x-model="cEmail" required placeholder="Your email" class="bg-zinc-800/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition">
+          <textarea x-model="cMessage" required placeholder="Your message" rows="4" class="bg-zinc-800/60 border border-zinc-700 rounded-xl px-4 py-3 text-sm text-white placeholder-zinc-500 focus:outline-none focus:ring-2 focus:ring-accent focus:border-transparent transition resize-none"></textarea>
+          <button type="submit" class="shimmer self-start inline-flex items-center justify-center gap-2 bg-white text-zinc-900 font-medium px-6 py-2.5 rounded-full hover:bg-zinc-200 transition-colors text-sm">Submit</button>
+          <p class="text-xs text-zinc-500">This opens your email client with the message pre-filled — nothing is sent silently.</p>
+        </form>
 
       </div>
     </div>
