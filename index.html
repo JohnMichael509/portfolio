@@ -9,7 +9,7 @@
      ══════════════════════════════════════════════════════════════ -->
 <meta name="description" content="Engr. John Michael Feliciano — Registered Mechanical Engineer. Portfolio of CAD design, engineering simulation, and manufacturing projects.">
 <meta name="author" content="John Michael Feliciano">
-<title>John Michael — Portfolio</title>
+<title>John Michael Feliciano — Portfolio</title>
 
 <!-- Favicon: a simple "JMF" monogram in the site's accent color. Swap these
      for your own icon files any time — just keep the same filenames, or
@@ -28,11 +28,11 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://johnmichael509.github.io/portfolio/">
 <meta property="og:title" content="John Michael Feliciano — Portfolio">
-<meta property="og:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and multimedia design.">
+<meta property="og:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and Revit/BIM for MEP.">
 <meta property="og:image" content="https://johnmichael509.github.io/portfolio/og-image.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="John Michael Feliciano — Portfolio">
-<meta name="twitter:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and multimedia design.">
+<meta name="twitter:description" content="Registered Mechanical Engineer specializing in CAD and 3D modelling, with working knowledge of engineering simulation, machining, and Revit/BIM for MEP.">
 <meta name="twitter:image" content="https://johnmichael509.github.io/portfolio/og-image.png">
 
 <!-- Tailwind CSS (styling) + Alpine.js (small bits of interactivity like the mobile menu & dark mode) -->
@@ -338,7 +338,6 @@ tailwind.config = {
             <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/inventor-icon.png" alt="Inventor logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Inventor</span>
           </div>
-          <!-- EDIT ME: swap in a real Revit icon at Icons/revit-icon.png once you have one. -->
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
             <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/revit-icon.png" alt="Autodesk Revit logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Revit</span>
@@ -373,8 +372,12 @@ tailwind.config = {
       </article>
 
       <article class="reveal d3 card-h group bg-zinc-800/60 rounded-2xl p-4 sm:p-8 border border-zinc-700 hover:border-accent/40">
-        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Manufacturing &amp; Prototyping</h3>
+        <h3 class="font-display font-bold text-base sm:text-xl text-white mb-3 sm:mb-5">Manufacturing</h3>
         <div class="inline-grid grid-cols-4 gap-2 sm:gap-3">
+          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
+            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/3d-printer-icon-color.png" alt="Rapid Prototyping logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
+            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Rapid Prototyping</span>
+          </div>
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
             <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/machining-icon-color.png" alt="Machining logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">Machining</span>
@@ -382,10 +385,6 @@ tailwind.config = {
           <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
             <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/cnc-icon-color.png" alt="CNC Programming logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
             <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">CNC Programming</span>
-          </div>
-          <div class="flex flex-col items-center gap-1 sm:gap-2 w-16 sm:w-20">
-            <div class="w-[53px] h-[53px] sm:w-[68px] sm:h-[68px] rounded-xl flex items-center justify-center overflow-hidden transition-transform duration-200 hover:scale-110 hover:-translate-y-0.5"><img src="Icons/3d-slicing-icon-color.png" alt="3D Slicing logo" class="w-[34px] h-[34px] sm:w-[44px] sm:h-[44px] rounded-md object-contain"></div>
-            <span class="text-[10px] sm:text-xs text-zinc-400 text-center leading-tight">3D Slicing</span>
           </div>
         </div>
       </article>
@@ -658,11 +657,12 @@ tailwind.config = {
       </div>
     </div>
 
-    <!-- EDIT ME: MEP Systems placeholder — you mentioned you're currently learning
-         this, so it's set up as a "coming soon" card for now. Once you have a real
-         project, replace this whole block with the same main+detail pattern used
-         above (see V6 Engine or RC Helicopter for reference), pointing at real
-         image files instead of these dashed placeholders. -->
+    <!-- EDIT ME: MEP Systems placeholder — you've now learned Revit/MEP basics and
+         are working on a self-project, so it's set up as a "coming soon" card for
+         now. Once that project is ready, replace this whole block with the same
+         main+detail pattern used above (see V6 Engine or RC Helicopter for
+         reference), pointing at real image files instead of these dashed
+         placeholders. -->
     <div class="mb-16 last:mb-0">
       <div class="flex flex-col sm:flex-row gap-3 mb-2 max-w-[90%] mx-auto">
         <div class="pf aspect-[711/400] rounded-lg border-2 border-dashed border-zinc-300 dark:border-zinc-700 flex flex-col items-center justify-center gap-2 !bg-zinc-100 dark:!bg-zinc-800/60 sm:w-[62%]">
@@ -678,7 +678,7 @@ tailwind.config = {
           </div>
         </div>
       </div>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">MEP Systems — currently learning, project coming soon</p>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left max-w-[90%] mx-auto">MEP Systems — self-project in progress, coming soon</p>
     </div>
 
     </div><!-- /tab: featured -->
@@ -887,7 +887,7 @@ tailwind.config = {
           <span class="text-xs text-zinc-400 dark:text-zinc-600">Content coming soon</span>
         </div>
       </div>
-      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">Currently learning Revit &amp; BIM workflows — projects coming soon.</p>
+      <p class="text-xs text-zinc-500 dark:text-zinc-400 text-left mt-2 max-w-[90%] mx-auto">MEP Systems — self-project in progress, coming soon</p>
 
     </div><!-- /tab: bim -->
 
@@ -986,13 +986,16 @@ tailwind.config = {
           <h2 class="reveal d1 font-tech font-bold text-3xl sm:text-4xl md:text-5xl text-white leading-tight mb-5">Let's work<br>together</h2>
           <p class="reveal d2 text-zinc-400 leading-relaxed mb-6">Send me a message using the form, or reach me directly below.</p>
 
-          <!-- EDIT ME: compact direct-contact icon row (Messenger, email, LinkedIn),
+          <!-- EDIT ME: compact direct-contact icon row (Messenger, Viber, email, LinkedIn),
                replacing the old large link cards now that the form is the primary
                contact method. Each is a circular button with a tooltip via
                aria-label/title. -->
           <div class="reveal d2 flex items-center gap-2">
             <a href="https://m.me/johnmichaelfeliciano.509" rel="noopener noreferrer" target="_blank" aria-label="Message on Messenger" title="Messenger" class="w-12 h-12 flex items-center justify-center bg-zinc-800/60 hover:bg-accent/20 border border-zinc-700 rounded-full transition-colors">
               <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.652V24l4.084-2.242c1.09.301 2.246.464 3.447.464 6.627 0 12-4.974 12-11.111C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26L10.732 8l3.131 3.259L19.752 8l-6.561 6.963z"/></svg>
+            </a>
+            <a href="viber://chat?number=%2B639091181316" rel="noopener noreferrer" aria-label="Message on Viber" title="Viber" class="w-12 h-12 flex items-center justify-center bg-zinc-800/60 hover:bg-accent/20 border border-zinc-700 rounded-full transition-colors">
+              <svg class="w-5 h-5 text-accent" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path d="M11.4 0C9.473.028 5.333.344 3.02 2.467 1.302 4.187.696 6.7.633 9.817.57 12.933.488 18.776 6.12 20.36h.003l-.004 2.416s-.037.977.61 1.177c.777.242 1.234-.5 1.98-1.302.407-.44.972-1.084 1.397-1.58 3.85.326 6.812-.416 7.15-.525.776-.252 5.176-.816 5.892-6.657.74-6.02-.36-9.83-2.34-11.546-.596-.55-3.006-2.3-8.375-2.323 0 0-.395-.025-1.037-.017zm.058 1.693c.545-.004.88.017.88.017 4.542.02 6.717 1.388 7.222 1.846 1.675 1.435 2.53 4.868 1.906 9.897v.002c-.604 4.878-4.174 5.184-4.832 5.395-.28.09-2.882.737-6.153.524 0 0-2.436 2.94-3.197 3.704-.12.12-.26.167-.352.144-.13-.033-.166-.188-.165-.414l.02-4.018c-4.762-1.32-4.485-6.292-4.43-8.895.054-2.604.543-4.738 1.996-6.173 1.96-1.773 5.474-2.018 7.11-2.03zm.38 2.602c-.167 0-.303.135-.304.302 0 .167.133.303.3.305 1.624.01 2.946.537 4.028 1.592 1.073 1.046 1.62 2.468 1.633 4.334.002.167.14.3.307.3.166-.002.3-.138.3-.304-.014-1.984-.618-3.596-1.816-4.764-1.19-1.16-2.692-1.753-4.447-1.765zm-3.96.695c-.19-.032-.4.005-.616.117l-.01.002c-.43.247-.816.562-1.146.932-.002.004-.006.004-.008.008-.267.323-.42.638-.46.948-.008.046-.01.093-.007.14 0 .136.022.27.065.4l.013.01c.135.48.473 1.276 1.205 2.604.42.768.903 1.5 1.446 2.186.27.344.56.673.87.984l.132.132c.31.308.64.6.984.87.686.543 1.418 1.027 2.186 1.447 1.328.733 2.126 1.07 2.604 1.206l.01.014c.13.042.265.064.402.063.046.002.092 0 .138-.008.31-.036.627-.19.948-.46.004 0 .003-.002.008-.005.37-.33.683-.72.93-1.148l.003-.01c.225-.432.15-.842-.18-1.12-.004 0-.698-.58-1.037-.83-.36-.255-.73-.492-1.113-.71-.51-.285-1.032-.106-1.248.174l-.447.564c-.23.283-.657.246-.657.246-3.12-.796-3.955-3.955-3.955-3.955s-.037-.426.248-.656l.563-.448c.277-.215.456-.737.17-1.248-.217-.383-.454-.756-.71-1.115-.25-.34-.826-1.033-.83-1.035-.137-.165-.31-.265-.502-.297zm4.49.88c-.158.002-.29.124-.3.282-.01.167.115.312.282.324 1.16.085 2.017.466 2.645 1.15.63.688.93 1.524.906 2.57-.002.168.13.306.3.31.166.003.305-.13.31-.297.025-1.175-.334-2.193-1.067-2.994-.74-.81-1.777-1.253-3.05-1.346h-.024zm.463 1.63c-.16.002-.29.127-.3.287-.008.167.12.31.288.32.523.028.875.175 1.113.422.24.245.388.62.416 1.164.01.167.15.295.318.287.167-.008.295-.15.287-.317-.03-.644-.215-1.178-.58-1.557-.367-.378-.893-.574-1.52-.607h-.018z"/></svg>
             </a>
             <a href="mailto:johnfeliciano.engr@gmail.com"
                @click="navigator.clipboard.writeText('johnfeliciano.engr@gmail.com'); emailCopied = true; setTimeout(() => emailCopied = false, 2000)"
